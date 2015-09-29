@@ -1,8 +1,42 @@
+@import url('https://fonts.googleapis.com/css?family=Paytone One|Ledger');
+/*!
+ * Default theme for Pingendo 
+ * Homepage: http://pingendo.com  
+ * Copyright 2015 Pingendo 
+ * Licensed under MIT 
+ * Based on Bootstrap v3.3.4
+ https://s3-us-west-2.amazonaws.com/s.cdpn.io/45544/background-svg.svg
+*/
+
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+	background-color: #DFE3EE;
+	margin-top: 100px; /* Required margin for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+/*!	background: url("/images/friendsbackground.jpg") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;*/
 }
 
-a {
-  color: #00B7FF;
+.nopadding {
+   padding: 0 !important;
+   margin: 0 !important;
+}
+
+.myBackground {
+  background-color: rgba(255,255,255, 0.5);
+  color: inherit;
+}
+
+.navbar {
+    background-color: #3B5998;
+    border-color: #3B5998;
+}
+
+.full {
+    background: url("/images/friendsbackground.jpg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
 }
