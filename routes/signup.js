@@ -4,6 +4,8 @@ exports.signup = function(req, res){
 	
 	//Getting User Object from Request
 	var user = req.body;
+	
+	console.log("Recieved Request for Account Creation " + JSON.stringify(user));
 	//Hardcoded Default Image URL
 	user.IMAGE_URL="http://www.almostsavvy.com/wp-content/uploads/2011/04/profile-photo.jpg";
 	accountoperation.createUser(user,res,req);

@@ -1,5 +1,4 @@
 <html>
-  
   <head>
     <title>friend's circle</title>
     <link rel="icon" href="/images/favicon.ico">
@@ -19,8 +18,8 @@
     rel="stylesheet" type="text/css">
   </head>
   
-  <body ng-app="SocialMediaPrototypeHome" ng-controller="homePageController" ng-init="user=<%= user %>; loadNewsFeeds();">
-   <div class="navbar navbar-fixed-top myBackground">
+  <body ng-app="SocialMediaPrototypeHome" ng-controller="homePageController" ng-init="user=<%= user %>; loadNewsFeeds(); loadFriendList();">
+     <div class="navbar navbar-fixed-top myBackground">
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-ex-collapse">
@@ -46,7 +45,7 @@
             </li>
           </ul>
           <p class="navbar-text navbar-right" id="ProfileDisplayLink">
-            <img ng-src={{user.IMAGE_URL}} alt="profile" style="min-height:40px;height:40px;">
+            <img ng-src="{{user.IMAGE_URL}}" alt="profile" style="min-height:40px;height:40px;">
             <a id="toolbarname" href="/group" class="navbar-link">{{user.firstname}}</a>
           </p>
         </div>
@@ -63,112 +62,127 @@
           <div class="col-md-3">
             <ul class="media-list">
               <li class="media">
-                <a class="pull-left" href="#"><img class="media-object" ng-src={{user.IMAGE_URL}} height="64" width="64"></a>
+                <a class="pull-left" href="#"><img class="media-object" ng-src="{{user.IMAGE_URL}}" height="64" width="64"></a>
                 <div class="media-body">
                   <h4 class="media-heading">{{user.firstname}} {{user.lastname}}</h4>
                   <p></p>
                 </div>
               </li>
             </ul>
+            <ul class="media-list">
+              <li class="media">
+                <a class="pull-left" href="/Friends"><img class="media-object" src="https://hdwallpapers.cat/wallpaper_high_contrast/two_friends_happiness_colors_smile_abstract_high_contrast_hd-wallpaper-1559778.jpg" height="54" width="54"></a>
+                <div class="media-body">
+                  <h4 class="media-heading">Friends</h4>
+
+                </div>
+              </li>
+              <li class="media">
+                <a class="pull-left" href="/Groups"><img class="media-object" src="http://previews.123rf.com/images/fffranz/fffranz1312/fffranz131200046/24441438-abstract-schematic-illustration-of-groups-and-behavior-therapy-Stock-Vector.jpg" height="54" width="54"></a>
+                <div class="media-body">
+                  <h4 class="media-heading">Groups</h4>
+                </div>
+              </li>
+            </ul>
           </div>
           <div class="col-md-7" id="newsfeed">
-         <ul class="list-group text-left">
-		   <label class="text-left">Update Status :</label>
+            <div class="panel panel-primary">
+              <div class="panel-heading">
+                <h3 class="panel-title">Update Status</h3>
+              </div>
+              <div class="panel-body text-right">
+                <input type="textarea" style="width: 100%; border: 1px solid #333; padding: 5px;padding-right: 10px;"
+                ng-model="statusupdate.POST_MESSAGE" name="POST_MESSAGE">
+                <br>
+                <a class="btn btn-primary btn-sm" style="align : left; border: 1px solid #333; padding: 4px;padding-right: 10px;"
+                ng-click="postStatusUpdate()"><i class="fa fa-star fa-fw"></i>Post</a>
+              </div>
+            </div>
+            <ul class="list-group text-left">
+              <!-- <label class="text-left">Update Status :</label>
 		   <li class="list-group-item text-right">
 		      <input type="textarea" style="width: 100%; border: 1px solid #333; padding: 5px;padding-right: 10px;" ng-model="statusupdate.POST_MESSAGE" name="POST_MESSAGE">
 		      <br>
 		      <a class="btn btn-primary btn-sm" style="align : left; border: 1px solid #333; padding: 4px;padding-right: 10px;" ng-click="postStatusUpdate()"><i class="fa fa-star fa-fw"></i>Post</a>
-		   </li>
-		   <li class="list-group-item text-right" ng-show="statusupdate.POST_MESSAGE.length">
-		   <div class="alert alert-danger" ng-show="statusupdate.error">
-	    		<strong>Error! {{statusupdate.errorMessage}}</strong>
-	   		</div>
-		   <div class="row">
-		      <div class="col-md-2">
-		         <div class="thumbnail">
-		            <img ng-src={{statusupdate.IMAGE_URL}} class="img-responsive">
-		         </div>
-		      </div>
-		      <div class="col-md-10 text-justify">
-		         <blockquote>
-		            <p>{{statusupdate.POST_MESSAGE}}</p>
-		            <footer>{{user.firstname}}</footer>
-		         </blockquote>
-		      </div>
-		      </div>
-		      </li>
-			</ul>
-            <ul class="list-group text-right">
-            <div class="alert alert-danger" ng-show="newsfeeds.error">
-	    		<strong>Error! {{newsfeeds.errorMessage}}</strong>
-	   		</div>
-              <li class="list-group-item" ng-repeat="feeds in newsfeeds" ng-show="!newsfeeds.error">
-               <div class="row">
-                  <div class="col-md-2"><div class="thumbnail">
-                  <img ng-src={{feeds.IMAGE_URL}} class="img-responsive">
+		   </li> -->
+              <li class="list-group-item text-right" ng-show="statusupdate.POST_MESSAGE.length">
+                <div class="alert alert-danger" ng-show="statusupdate.error">
+                  <strong>Error! {{statusupdate.errorMessage}}</strong>
                 </div>
-                </div>
+                <div class="row">
+                  <div class="col-md-2">
+                    <div class="thumbnail">
+                      <img ng-src="{{statusupdate.IMAGE_URL}}" class="img-responsive">
+                    </div>
+                  </div>
                   <div class="col-md-10 text-justify">
-	                <blockquote>
-	                  <p>{{feeds.POST_MESSAGE}}</p>
-	                  <footer>{{feeds.USER_ID}}</footer>
-	                </blockquote>
+                    <blockquote>
+                      <p>{{statusupdate.POST_MESSAGE}}</p>
+                      <footer>{{user.firstname}}</footer>
+                    </blockquote>
+                  </div>
+                </div>
+              </li>
+            </ul>
+            <ul class="list-group text-right">
+              <div class="alert alert-danger" ng-show="newsfeeds.error">
+                <strong>Error! {{newsfeeds.errorMessage}}</strong>
+              </div>
+              <li class="list-group-item" ng-repeat="feeds in newsfeeds" ng-show="!newsfeeds.error">
+                <div class="row">
+                  <div class="col-md-2">
+                    <div class="thumbnail">
+                      <img ng-src="{{feeds.IMAGE_URL}}" class="img-responsive">
+                    </div>
+                  </div>
+                  <div class="col-md-10 text-justify">
+                    <blockquote>
+                      <p>{{feeds.POST_MESSAGE}}</p>
+                      <footer>{{feeds.USER_ID}}</footer>
+                    </blockquote>
                   </div>
                 </div>
               </li>
             </ul>
           </div>
-          <div class="col-md-2" id="GroupsList">
-            <ul class="media-list">
-              <li class="media">
-                <a class="pull-left" href="#"><img class="media-object" src="http://pingendo.github.io/pingendo-bootstrap/assets/placeholder.png" height="64" width="64"></a>
-                <div class="media-body">
-                  <h4 class="media-heading">Group Name</h4>
-                </div>
-              </li>
-              <li class="media">
-                <a class="pull-left" href="#"><img class="media-object" src="http://pingendo.github.io/pingendo-bootstrap/assets/placeholder.png" height="64" width="64"></a>
-                <div class="media-body">
-                  <h4 class="media-heading">Group Name</h4>
-                </div>
-              </li>
-              <li class="media">
-                <a class="pull-left" href="#"><img class="media-object" src="http://pingendo.github.io/pingendo-bootstrap/assets/placeholder.png" height="64" width="64"></a>
-                <div class="media-body">
-                  <h4 class="media-heading">Group Name</h4>
-                </div>
-              </li>
-              <li class="media">
-                <a class="pull-left" href="#"><img class="media-object" src="http://pingendo.github.io/pingendo-bootstrap/assets/placeholder.png" height="64" width="64"></a>
-                <div class="media-body">
-                  <h4 class="media-heading">Group Name</h4>
-                </div>
-              </li>
-              <li class="media">
-                <a class="pull-left" href="#"><img class="media-object" src="http://pingendo.github.io/pingendo-bootstrap/assets/placeholder.png" height="64" width="64"></a>
-                <div class="media-body">
-                  <h4 class="media-heading">Group Name</h4>
-                </div>
-              </li>
-              <li class="media">
-                <a class="pull-left" href="#"><img class="media-object" src="http://pingendo.github.io/pingendo-bootstrap/assets/placeholder.png" height="64" width="64"></a>
-                <div class="media-body">
-                  <h4 class="media-heading">Group Name</h4>
-                </div>
-              </li>
-              <li class="media">
-                <a class="pull-left" href="#"><img class="media-object" src="http://pingendo.github.io/pingendo-bootstrap/assets/placeholder.png" height="64" width="64"></a>
-                <div class="media-body">
-                  <h4 class="media-heading">Group Name</h4>
-                </div>
-              </li>
-              <li class="media">
-                <a class="pull-left" href="#"><img class="media-object" src="http://pingendo.github.io/pingendo-bootstrap/assets/placeholder.png" height="64" width="64"></a>
-                <div class="media-body">
-                  <h4 class="media-heading">Group Name</h4>
-                </div>
-              </li>
-            </ul>
+          <div class="col-md-2">
+            <div class="row">
+              <div class="col-md-12">
+                <h2 class="text-center">Groups</h2>
+              </div>
+            </div>
+            <div class="row" id="GroupsList">
+              <ul class="media-list">
+                <li class="media">
+                  <a class="pull-left" href="#"><img class="media-object" src="http://pingendo.github.io/pingendo-bootstrap/assets/placeholder.png" height="64" width="64"></a>
+                  <div class="media-body">
+                    <h4 class="media-heading">Group Name</h4>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <h3 class="text-center">Make New Friends</h3>
+               <div class="alert alert-danger" ng-show="friendslist.error">
+                <strong>Error! {{friendslist.errorMessage}}</strong>
+              </div>
+              <div class="alert alert-danger" ng-show="friendrequest.error">
+                <strong>Error! {{friendrequest.errorMessage}}</strong>
+              </div>
+              </div>
+            </div>
+            
+            <div class="row" id="FriendsList"  ng-show="!friendslist.error">
+              <ul class="media-list">
+                <li class="media" ng-repeat="friends in friendslist">
+                  <a class="pull-left" ng-click="sendFiendRequest(friends)"><img class="media-object"  ng-src="{{friends.IMAGE_URL}}" height="44" width="44"></a>
+                  <div class="media-body">
+                    <h4 class="media-heading">{{friends.FIRST_NAME}} {{friends.LAST_NAME}}</h4>
+                  </div>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>

@@ -50,6 +50,11 @@ body {
   -o-background-size: cover;
 }
 
+.panel-heading {
+     background-color: #3B5998 !important;
+     border-color: #000000;
+}
+
 @media (min-width: 768px){
   #newsfeed {
     overflow-y: auto; 
@@ -57,8 +62,13 @@ body {
   }
   
   #GroupsList{
-    overflow-y: scroll;
-    height:30%;
+    overflow-y: auto;
+    height:40%;
+  }
+   
+  #FriendsList{
+    overflow-y: auto;
+    height:40%;
   }
 }
 ///newly added

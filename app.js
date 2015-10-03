@@ -12,6 +12,7 @@ var express = require('express')
   , login = require('./routes/login')
   , session = require('client-sessions')
   , newsfeed = require('./routes/newsfeed')
+  , friend = require('./routes/friend') 
   , bcrypt = require('bcrypt');
 
 var app = express();
@@ -49,6 +50,8 @@ app.post('/logout', login.logout);
 app.get('/home', login.home);
 app.post('/getNewsFeeds',newsfeed.getNewsFeed);
 app.post('/postStatusUpdate',newsfeed.postStatusUpdate);
+app.post('/loadFriendList',friend.loadFriendList);
+app.post('/sendFiendRequest',friend.sendFiendRequest);
 app.get('/groups', user.list);
 
 http.createServer(app).listen(app.get('port'), function(){

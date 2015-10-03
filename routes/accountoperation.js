@@ -46,6 +46,13 @@ module.exports = {
 		postStatusUpdate : function(user,res,req){
 			var DBConnection = require('./DBConnection');
 			DBConnection.handleDBRequest("postStatusUpdate",user,res,req);
+		},
+		loadFriendList : function(user,res,req){
+			var DBConnection = require('./DBConnection');
+			DBConnection.handleDBRequest("loadFriendList",user,res,req);
+		},sendFiendRequest : function(user,res,req){
+			var DBConnection = require('./DBConnection');
+			DBConnection.handleDBRequest("sendFiendRequest",user,res,req);
 		}
 };
 
