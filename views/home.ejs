@@ -1,0 +1,178 @@
+<html>
+  
+  <head>
+    <title>friend's circle</title>
+    <link rel="icon" href="/images/favicon.ico">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.4/angular.js"></script>
+<!--     <script src="https://code.angularjs.org/1.3.6/angular-messages.js"></script>
+    <script src="https://code.angularjs.org/1.3.6/angular-route.js"></script> -->
+    <script type="text/javascript" src="/js/libJS.js"></script>
+    <script type="text/javascript" src="/js/homeJS.js"></script>
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css"
+    rel="stylesheet" type="text/css">
+    <link href="/stylesheets/style.css" rel="stylesheet" type="text/css">
+    <link href="http://pingendo.github.io/pingendo-bootstrap/themes/default/bootstrap.css"
+    rel="stylesheet" type="text/css">
+  </head>
+  
+  <body ng-app="SocialMediaPrototypeHome" ng-controller="homePageController" ng-init="user=<%= user %>; loadNewsFeeds();">
+   <div class="navbar navbar-fixed-top myBackground">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-ex-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand"><img height="30" width="150" alt="friend's circle" ng-src="/images/Drawing.png"></a>
+        </div>
+        <div class="collapse navbar-collapse" id="navbar-ex-collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li class="active" id="homebutton">
+              <div class="row">
+                <button type="button" class="btn btn-primary">Home</button>
+              </div>
+            </li>
+            <li class="active">
+              <form class="navbar-form navbar-right" role="search" name="logoutForm"
+              ng-submit="logoutUesr()" action="/logout" method="post" novalidate="">
+                <button type="submit" ng-disabled="logoutForm.$invalid" class="btn btn-primary">Logout</button>
+              </form>
+            </li>
+          </ul>
+          <p class="navbar-text navbar-right" id="ProfileDisplayLink">
+            <img ng-src={{user.IMAGE_URL}} alt="profile" style="min-height:40px;height:40px;">
+            <a id="toolbarname" href="/group" class="navbar-link">{{user.firstname}}</a>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="section">
+      <div class="container">
+        <div class="row"></div>
+      </div>
+    </div>
+    <div class="section">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-3">
+            <ul class="media-list">
+              <li class="media">
+                <a class="pull-left" href="#"><img class="media-object" ng-src={{user.IMAGE_URL}} height="64" width="64"></a>
+                <div class="media-body">
+                  <h4 class="media-heading">{{user.firstname}} {{user.lastname}}</h4>
+                  <p></p>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="col-md-7" id="newsfeed">
+         <ul class="list-group text-left">
+		   <label class="text-left">Update Status :</label>
+		   <li class="list-group-item text-right">
+		      <input type="textarea" style="width: 100%; border: 1px solid #333; padding: 5px;padding-right: 10px;" ng-model="statusupdate.POST_MESSAGE" name="POST_MESSAGE">
+		      <br>
+		      <a class="btn btn-primary btn-sm" style="align : left; border: 1px solid #333; padding: 4px;padding-right: 10px;" ng-click="postStatusUpdate()"><i class="fa fa-star fa-fw"></i>Post</a>
+		   </li>
+		   <li class="list-group-item text-right" ng-show="statusupdate.POST_MESSAGE.length">
+		   <div class="alert alert-danger" ng-show="statusupdate.error">
+	    		<strong>Error! {{statusupdate.errorMessage}}</strong>
+	   		</div>
+		   <div class="row">
+		      <div class="col-md-2">
+		         <div class="thumbnail">
+		            <img ng-src={{statusupdate.IMAGE_URL}} class="img-responsive">
+		         </div>
+		      </div>
+		      <div class="col-md-10 text-justify">
+		         <blockquote>
+		            <p>{{statusupdate.POST_MESSAGE}}</p>
+		            <footer>{{user.firstname}}</footer>
+		         </blockquote>
+		      </div>
+		      </div>
+		      </li>
+			</ul>
+            <ul class="list-group text-right">
+            <div class="alert alert-danger" ng-show="newsfeeds.error">
+	    		<strong>Error! {{newsfeeds.errorMessage}}</strong>
+	   		</div>
+              <li class="list-group-item" ng-repeat="feeds in newsfeeds" ng-show="!newsfeeds.error">
+               <div class="row">
+                  <div class="col-md-2"><div class="thumbnail">
+                  <img ng-src={{feeds.IMAGE_URL}} class="img-responsive">
+                </div>
+                </div>
+                  <div class="col-md-10 text-justify">
+	                <blockquote>
+	                  <p>{{feeds.POST_MESSAGE}}</p>
+	                  <footer>{{feeds.USER_ID}}</footer>
+	                </blockquote>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="col-md-2" id="GroupsList">
+            <ul class="media-list">
+              <li class="media">
+                <a class="pull-left" href="#"><img class="media-object" src="http://pingendo.github.io/pingendo-bootstrap/assets/placeholder.png" height="64" width="64"></a>
+                <div class="media-body">
+                  <h4 class="media-heading">Group Name</h4>
+                </div>
+              </li>
+              <li class="media">
+                <a class="pull-left" href="#"><img class="media-object" src="http://pingendo.github.io/pingendo-bootstrap/assets/placeholder.png" height="64" width="64"></a>
+                <div class="media-body">
+                  <h4 class="media-heading">Group Name</h4>
+                </div>
+              </li>
+              <li class="media">
+                <a class="pull-left" href="#"><img class="media-object" src="http://pingendo.github.io/pingendo-bootstrap/assets/placeholder.png" height="64" width="64"></a>
+                <div class="media-body">
+                  <h4 class="media-heading">Group Name</h4>
+                </div>
+              </li>
+              <li class="media">
+                <a class="pull-left" href="#"><img class="media-object" src="http://pingendo.github.io/pingendo-bootstrap/assets/placeholder.png" height="64" width="64"></a>
+                <div class="media-body">
+                  <h4 class="media-heading">Group Name</h4>
+                </div>
+              </li>
+              <li class="media">
+                <a class="pull-left" href="#"><img class="media-object" src="http://pingendo.github.io/pingendo-bootstrap/assets/placeholder.png" height="64" width="64"></a>
+                <div class="media-body">
+                  <h4 class="media-heading">Group Name</h4>
+                </div>
+              </li>
+              <li class="media">
+                <a class="pull-left" href="#"><img class="media-object" src="http://pingendo.github.io/pingendo-bootstrap/assets/placeholder.png" height="64" width="64"></a>
+                <div class="media-body">
+                  <h4 class="media-heading">Group Name</h4>
+                </div>
+              </li>
+              <li class="media">
+                <a class="pull-left" href="#"><img class="media-object" src="http://pingendo.github.io/pingendo-bootstrap/assets/placeholder.png" height="64" width="64"></a>
+                <div class="media-body">
+                  <h4 class="media-heading">Group Name</h4>
+                </div>
+              </li>
+              <li class="media">
+                <a class="pull-left" href="#"><img class="media-object" src="http://pingendo.github.io/pingendo-bootstrap/assets/placeholder.png" height="64" width="64"></a>
+                <div class="media-body">
+                  <h4 class="media-heading">Group Name</h4>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+
+</html>
