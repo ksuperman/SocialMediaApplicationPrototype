@@ -14,6 +14,7 @@ var express = require('express')
   , newsfeed = require('./routes/newsfeed')
   , friend = require('./routes/friend')
   , user = require('./routes/user')
+  , groups = require('./routes/groups')
   , bcrypt = require('bcrypt');
 
 var app = express();
@@ -33,6 +34,7 @@ app.use(express.bodyParser());
 app.use(express.methodOverride());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/public', express.static(__dirname + "/public"));
 /*app.use(session({
 	  secret: '0GBlJZ9EKBt2Zbi2flRPvztczCewBxXK' // set this to a long random string!
 	}));*/
@@ -46,7 +48,7 @@ if ('development' == app.get('env')) {
 
 app.get('/', routes.index);
 app.get('/home', login.home);
-app.get('/groups', user.groups);
+app.get('/groups', groups.groups);
 app.get('/friendslist', friend.friendslist);
 app.get('/userdetails', user.userdetails);
 
@@ -62,6 +64,13 @@ app.post('/loadPendingFriendList',friend.loadPendingFriendList);
 app.post('/acceptFriendRequest',friend.acceptFriendRequest);
 app.post('/rejectFriendRequest',friend.rejectFriendRequest);
 app.post('/sendFiendRequest',friend.sendFiendRequest);
+app.post('/uploadProfilePic',user.uploadProfilePic);
+app.post('/loadAllGroups',groups.loadAllGroups);
+app.post('/loadMyGroups',groups.loadMyGroups);
+app.post('/addUserToGroup',groups.addUserToGroup);
+app.post('/removeUserFromGroup',groups.removeUserFromGroup);
+app.post('/createGroup',groups.createGroup);
+
 
 
 http.createServer(app).listen(app.get('port'), function(){

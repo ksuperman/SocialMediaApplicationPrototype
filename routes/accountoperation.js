@@ -91,6 +91,38 @@ module.exports = {
 		getLifeEvents : function(user,res,req){
 			var DBConnection = require('./DBConnection');
 			DBConnection.handleDBRequest("getLifeEvents",user,res,req);
+		},
+		updateProfilePicture : function(user,res,req){
+			var DBConnection = require('./DBConnection');
+			DBConnection.handleDBRequest("updateProfilePicture",user,res,req);
+		},
+		renderGroupsPage  : function(user,res,req){
+			var DBConnection = require('./DBConnection');
+			DBConnection.handleDBRequest("renderGroupsPage",user,res,req);
+		},
+		groupPageRedirect : function(data,res, req){
+			console.log(data);
+			res.render('groups', { user: JSON.stringify(data)});	
+		},
+		loadAllGroups : function(user,res,req){
+			var DBConnection = require('./DBConnection');
+			DBConnection.handleDBRequest("loadAllGroups",user,res,req);
+		},
+		loadMyGroups : function(user,res,req){
+			var DBConnection = require('./DBConnection');
+			DBConnection.handleDBRequest("loadMyGroups",user,res,req);
+		},
+		addUserToGroup : function(user,res,req){
+			var DBConnection = require('./DBConnection');
+			DBConnection.handleDBRequest("addUserToGroup",user,res,req);
+		},
+		removeUserFromGroup : function(user,res,req){
+			var DBConnection = require('./DBConnection');
+			DBConnection.handleDBRequest("removeUserFromGroup",user,res,req);
+		},
+		createGroup : function(user,res,req){
+			var DBConnection = require('./DBConnection');
+			DBConnection.handleDBRequest("createGroup",user,res,req);
 		}
 };
 

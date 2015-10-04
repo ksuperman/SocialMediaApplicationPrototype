@@ -1,0 +1,196 @@
+<html>
+   <head>
+      <title>friend's circle</title>
+      <link rel="icon" href="/images/favicon.ico">
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+      <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+      <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.4/angular.js"></script>
+      <!--     <script src="https://code.angularjs.org/1.3.6/angular-messages.js"></script>
+         <script src="https://code.angularjs.org/1.3.6/angular-route.js"></script> -->
+      <script type="text/javascript" src="/js/libJS.js"></script>
+      <script type="text/javascript" src="/js/groupJS.js"></script>
+      <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css"
+         rel="stylesheet" type="text/css">
+      <link href="/stylesheets/style.css" rel="stylesheet" type="text/css">
+      <link href="http://pingendo.github.io/pingendo-bootstrap/themes/default/bootstrap.css"
+         rel="stylesheet" type="text/css">
+   </head>
+   <body ng-app="SocialMediaPrototypeGroup" ng-controller="GroupPageController" ng-init="user=<%= user %>; loadAllGroups(); loadMyGroups();">
+      <div class="navbar navbar-fixed-top myBackground">
+         <div class="container">
+            <div class="navbar-header">
+               <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-ex-collapse">
+               <span class="sr-only">Toggle navigation</span>
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+               </button>
+               <a class="navbar-brand" href="/home"><img height="30" width="150" alt="friend's circle" ng-src="/images/Drawing.png"></a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar-ex-collapse">
+               <ul class="nav navbar-nav navbar-right">
+                  <li class="active" id="homebutton">
+                     <div class="row">
+                        <form class="navbar-form navbar-right" role="search" name="homeForm" ng-submit="gotoHome()"
+                           action="/home" method="get" novalidate="">
+                           <button type="submit" ng-disabled="homeForm.$invalid" class="btn btn-primary">Home</button>
+                        </form>
+                     </div>
+                  </li>
+                  <li class="active">
+                     <form class="navbar-form navbar-right" role="search" name="logoutForm"
+                        ng-submit="logoutUesr()" action="/logout" method="post" novalidate="">
+                        <button type="submit" ng-disabled="logoutForm.$invalid" class="btn btn-primary">Logout</button>
+                     </form>
+                  </li>
+               </ul>
+               <p class="navbar-text navbar-right" id="ProfileDisplayLink">
+                  <img ng-src="{{user.IMAGE_URL}}" alt="profile" style="min-height:40px;height:40px;">
+                  <a id="toolbarname" href="/userdetails" class="navbar-link">{{user.FIRST_NAME}}</a>
+               </p>
+            </div>
+         </div>
+      </div>
+      <div class="section">
+         <div class="container">
+            <div class="row"></div>
+         </div>
+      </div>
+      <div class="section">
+         <div class="container">
+            <div class="row">
+               <div class="col-md-3">
+                  <ul class="media-list">
+                     <li class="media">
+                        <a class="pull-left" href="/userdetails"><img class="media-object" ng-src="{{user.IMAGE_URL}}" height="64" width="64"></a>
+                        <div class="media-body">
+                           <h4 class="media-heading">{{user.FIRST_NAME}} {{user.LAST_NAME}}</h4>
+                           <p></p>
+                        </div>
+                     </li>
+                  </ul>
+                  <ul class="media-list">
+                     <li class="media">
+                        <a class="pull-left" href="/friendslist"><img class="media-object" src="https://hdwallpapers.cat/wallpaper_high_contrast/two_friends_happiness_colors_smile_abstract_high_contrast_hd-wallpaper-1559778.jpg" height="54" width="54"></a>
+                        <div class="media-body">
+                           <h4 class="media-heading">Friends</h4>
+                        </div>
+                     </li>
+                     <li class="media">
+                        <a class="pull-left" href="/groups"><img class="media-object" src="http://previews.123rf.com/images/fffranz/fffranz1312/fffranz131200046/24441438-abstract-schematic-illustration-of-groups-and-behavior-therapy-Stock-Vector.jpg" height="54" width="54"></a>
+                        <div class="media-body">
+                           <h4 class="media-heading">Groups</h4>
+                        </div>
+                     </li>
+                  </ul>
+               </div>
+               <div class="col-md-9">
+                  <div class="row">
+                     <div class="jumbotron">
+                        <div class="container">
+                           <h1>Friend's Circle Groups</h1>
+                           <h3>Create and Manage Your Groups here !!</h3>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="row">
+                     <div class="col-md-12">
+                        <h2>Create your own group</h2>
+                     </div>
+                     <div class="col-md-12">
+                        <div class="row">
+                           <form class="form-horizontal" role="form" name="createGroupForm" ng-submit="createGroup()" action="/createGroup" method="post" novalidate>
+                              <div class="col-md-11">
+                                 <div class="form-group has-feedback">
+                                    <div class="col-sm-10">
+                                       <input type="text" class="form-control" name="group.GROUP_NAME" id="group.GROUP_NAME" ng-model="group.GROUP_NAME" placeholder="Group Name" required>
+                                    </div>
+                                 </div>
+                                 <div class="form-group">
+                                    <div class="col-sm-10">
+                                       <input type="text" class="form-control" name="group.GROUP_INFO" id="group.GROUP_INFO" ng-model="group.GROUP_INFO" placeholder="Group Information" required>
+                                    </div>
+                                 </div>
+                              </div>
+                           </form>
+                           <div>
+                                <button type="button" class="btn btn-lg btn-primary" ng-click="createGroup()">Create Group</button>
+                          </div>
+                        </div>
+                        <br>
+                        <div class="row" ng-show="group.GROUP_NAME.length||group.error">
+                        <div class="row" ng-show="group.error">
+	                        <div class="alert alert-danger" ng-show="group.error">
+				               <strong>Error! {{group.errorMessage}}</strong>
+				            </div>
+			            </div>
+			             <div class="row"ng-show="group.GROUP_NAME.length">
+			             <div class="column-md-12">
+						      <ul class="list-group text-left">
+						         <li class="list-group-item text-right">
+						            <div class="row">
+						               <div class="col-md-2">
+						                  <div class="thumbnail">
+						                     <img ng-src="{{group.IMAGE_URL}}" class="img-responsive">
+						                  </div>
+						               </div>
+						               <div class="col-md-10 text-justify">
+						                  <blockquote>
+						                     <p>{{group.GROUP_NAME}}</p>
+						                     <footer>{{group.GROUP_INFO}}</footer>
+						                  </blockquote>
+						               </div>
+						            </div>
+						         </li>
+						      </ul>
+						   </div>
+			             </div>
+						</div>
+                     </div>
+                  </div>
+                  <div class="row">
+                     <div class="col-md-6">
+                        <h2>Browse Groups</h2>
+                     </div>
+                     <div class="col-md-6">
+                        <h2>My Groups</h2>
+                     </div>
+                  </div>
+                  <div class="row">
+                     <div class="col-md-6">
+                      <div class="alert alert-danger" ng-show="allgroups.error">
+                 			 <strong>Error! {{allgroups.errorMessage}}</strong>
+              			 </div>
+                        <ul class="media-list" id="allGroupsList">
+                           <li class="media" ng-repeat="group in allgroups">
+                              <a class="pull-left" href="" ng-click="addUserToGroup(group)"><img class="media-object" ng-src={{group.IMAGE_URL}} height="54" width="54"></a>
+                              <div class="media-body">
+                                 <h4 class="media-heading">{{group.GROUP_NAME}}</h4>
+                                 <p>{{group.GROUP_INFO}}</p>
+                              </div>
+                           </li>
+                        </ul>
+                     </div>
+                     <div class="col-md-6">
+                     <div class="alert alert-danger" ng-show="mygroups.error">
+                 			 <strong>Error! {{mygroups.errorMessage}}</strong>
+              			 </div>
+                        <ul class="media-list" id="mmyGroupsList">
+                           <li class="media" ng-repeat="group in mygroups">
+                              <a class="pull-left" href="" ><img class="media-object" ng-src={{group.IMAGE_URL}} height="54" width="54"></a>
+                              <div class="media-body">
+                                 <h4 class="media-heading">{{group.GROUP_NAME}}<a class="pull-right" href=""ng-click="removeUserFromGroup(group)"> Remove Myself from this Group</a></h4>
+                                 <p>{{group.GROUP_INFO}}</p>
+                              </div>
+                           </li>
+                        </ul>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </body>
+</html>

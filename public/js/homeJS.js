@@ -7,6 +7,7 @@ SocialMediaPrototypeHome.controller('homePageController', function($scope,$http)
 	 $scope.friendslist = {};
 	 $scope.statusupdate.IMAGE_URL = "https://lh3.googleusercontent.com/-uoFDBGmaJME/AAAAAAAAAAI/AAAAAAAAAAA/QcZsAAou26Q/photo.jpg";
 	 $scope.friendrequest = {};
+	 $scope.allgroups = {};
 	 
 	console.log($scope.user);
 	console.log($scope.newsfeeds);	
@@ -92,6 +93,49 @@ SocialMediaPrototypeHome.controller('homePageController', function($scope,$http)
 					$scope.friendrequest.error = true;
 					console.log("Error In friendrequest " + JSON.stringify(response));	
 					console.log("Friends list JSON : " + JSON.stringify($scope.friendrequest));	
+			});
+	};
+	
+	$scope.loadAllGroups = function(){
+		$scope.allgroups.errorMessage = "";
+		$scope.allgroups.error = false;;
+		$http({
+			  method: 'POST',
+			  url: '/loadAllGroups',
+			  headers: {
+				   'Content-Type': 'application/json'
+			  },
+			  data: JSON.stringify($scope.allgroups)
+				}).then(function successCallback(response) {
+					console.log("Response from Server for MyFriends ++ " + JSON.stringify(response));
+					$scope.allgroups = response.data;
+				}, function errorCallback(response) {
+					$scope.allgroups.errorMessage = "There was an error retriving the Groups!!";
+					$scope.allgroups.error = true;
+					console.log("Error In My Friends request" + JSON.stringify(response));	
+					console.log(" my GROUPS list JSON : " + JSON.stringify($scope.allgroups));	
+			});
+	};
+	
+	$scope.addUserToGroup = function(group){
+		$scope.allgroups.errorMessage = "";
+		$scope.allgroups.error = false;;
+		$http({
+			  method: 'POST',
+			  url: '/addUserToGroup',
+			  headers: {
+				   'Content-Type': 'application/json'
+			  },
+			  data: JSON.stringify(group)
+				}).then(function successCallback(response) {
+					console.log("Response from Server for MyFriends ++ " + JSON.stringify(response));
+					//$scope.loadMyGroups();
+					$scope.loadAllGroups();
+				}, function errorCallback(response) {
+					$scope.allgroups.errorMessage = "There was an error retriving the Groups!!";
+					$scope.allgroups.error = true;
+					console.log("Error In My Friends request" + JSON.stringify(response));	
+					console.log(" my GROUPS list JSON : " + JSON.stringify($scope.allgroups));	
 			});
 	};
 });

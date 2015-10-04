@@ -17,6 +17,18 @@ exports.getLifeEvents = function(req,res){
 		accountoperation.userUnverified(res, "Invalid Session Please Login to Continue!!", {}, req);
 };
 
-exports.groups = function(req,res){
-	
+exports.uploadProfilePic = function(req,res){
+	var accountoperation = require('./accountoperation');
+	console.log(req);
+	var fs = require('fs');
+	fs.readFile(req.files.pofilepic.path, function (err, data) {
+		fs.exists(req.files.pofilepic.path)
+		  var newPath = "/home/rakshithk/workspace/SocialMediaApplicationPrototype/public/uploads/"+req.files.pofilepic.name;
+		  console.log("File newPath " + "");
+		  fs.writeFile(newPath, data, function (err) {
+			  console.log("File Uploaded" + err);
+			  accountoperation.updateProfilePicture({newPath: "/public/uploads/"+req.files.pofilepic.name},res,req)
+			  //accountoperation.renderUserDetailsPage({},res,req);
+	  });
+	});
 };

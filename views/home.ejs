@@ -19,7 +19,7 @@
     rel="stylesheet" type="text/css">
   </head>
   
-  <body ng-app="SocialMediaPrototypeHome" ng-controller="homePageController" ng-init="user=<%= user %>; loadNewsFeeds(); loadFriendList();">
+  <body ng-app="SocialMediaPrototypeHome" ng-controller="homePageController" ng-init="user=<%= user %>; loadNewsFeeds(); loadFriendList(); loadAllGroups();">
         <div class="navbar navbar-fixed-top myBackground">
       <div class="container">
         <div class="navbar-header">
@@ -82,7 +82,7 @@
                 </div>
               </li>
               <li class="media">
-                <a class="pull-left" href="/Groups"><img class="media-object" src="http://previews.123rf.com/images/fffranz/fffranz1312/fffranz131200046/24441438-abstract-schematic-illustration-of-groups-and-behavior-therapy-Stock-Vector.jpg" height="54" width="54"></a>
+                <a class="pull-left" href="/groups"><img class="media-object" src="http://previews.123rf.com/images/fffranz/fffranz1312/fffranz131200046/24441438-abstract-schematic-illustration-of-groups-and-behavior-therapy-Stock-Vector.jpg" height="54" width="54"></a>
                 <div class="media-body">
                   <h4 class="media-heading">Groups</h4>
                 </div>
@@ -152,18 +152,24 @@
           <div class="col-md-2">
             <div class="row">
               <div class="col-md-12">
-                <h2 class="text-center">Groups</h2>
+                <h2 class="text-center">Join New Groups</h2>
               </div>
             </div>
             <div class="row" id="GroupsList">
-              <ul class="media-list">
-                <li class="media">
-                  <a class="pull-left" href="#"><img class="media-object" src="http://pingendo.github.io/pingendo-bootstrap/assets/placeholder.png" height="64" width="64"></a>
-                  <div class="media-body">
-                    <h4 class="media-heading">Group Name</h4>
-                  </div>
-                </li>
-              </ul>
+			<div class="col-md-12">
+               <div class="alert alert-danger" ng-show="allgroups.error">
+          			 <strong>Error! {{allgroups.errorMessage}}</strong>
+       			 </div>
+                 <ul class="media-list" id="allGroupsList">
+                    <li class="media" ng-repeat="group in allgroups">
+                       <a class="pull-left" href="" ng-click="addUserToGroup(group)"><img class="media-object" ng-src={{group.IMAGE_URL}} height="54" width="54"></a>
+                       <div class="media-body">
+                          <h4 class="media-heading">{{group.GROUP_NAME}}</h4>
+                          <!-- <p>{{group.GROUP_INFO}}</p> -->
+                       </div>
+                    </li>
+                 </ul>
+              </div>
             </div>
             <div class="row">
               <div class="col-md-12">

@@ -204,6 +204,77 @@ module.exports = {
 			}
 			break;
 			
+		case "updateProfilePicture" :
+			if(req.session.username != null && req.session.username != ""){
+				var sql_query = "UPDATE USERS SET IMAGE_URL = '" + data.newPath + "' WHERE ROW_ID = " + req.session.ROW_ID;
+				executeSelectQuery(sql_query,data,req,res,operation);
+			}else{
+				var accountoperation = require('./accountoperation');
+				accountoperation.userUnverified(res,"Invalid Session!! Please Login to continue.",{},req)
+			}
+			break;
+			
+		case "renderGroupsPage" :
+			if(req.session.username != null && req.session.username != ""){
+				var sql_query = "SELECT usd.PHONE as 'PHONE',usd.CURR_CITY as 'CURR_CITY',usd.ABOUT_ME,usd.HOME_ADDR as 'HOME_ADDR', usd.WEB_URL as 'WEB_URL', usd.PROFESSIONAL_SKILLS as 'PROFESSIONAL SKILLS', usd.COMPANY as 'COMPANY', usd.COLLEGE as 'COLLEGE', usd.HIGH_SCHL as 'HIGH_SCHL',usr.ROW_ID as 'ROW_ID', usr.FIRST_NAME as 'FIRST_NAME', usr.LAST_NAME as 'LAST_NAME', usr.EMAIL_ADDR as 'EMAIL_ADDR', usr.DATE_OF_BIRTH as 'DATE_OF_BIRTH', usr.PASSWORD as 'PASSWORD', usr.GENDER as 'GENDER', usr.IMAGE_URL as 'IMAGE_URL' FROM USER_DETAILS usd , USERS usr WHERE usd.USER_ID = usr.ROW_ID AND usr.ROW_ID =" + req.session.ROW_ID;
+				executeSelectQuery(sql_query,data,req,res,operation);
+			}else{
+				var accountoperation = require('./accountoperation');
+				accountoperation.userUnverified(res,"Invalid Session!! Please Login to continue.",{},req)
+			}
+			break;
+			
+		case "loadAllGroups" :
+			if(req.session.username != null && req.session.username != ""){
+				var sql_query ="SELECT * FROM `GROUPS` WHERE ROW_ID NOT IN (SELECT `GROUP_ID`FROM GROUP_USERS where USER_ID = " + req.session.ROW_ID + ")";
+				executeSelectQuery(sql_query,data,req,res,operation);
+			}else{
+				var accountoperation = require('./accountoperation');
+				accountoperation.userUnverified(res,"Invalid Session!! Please Login to continue.",{},req)
+			}
+			break;
+			
+		case "loadMyGroups" :
+			if(req.session.username != null && req.session.username != ""){
+				var sql_query ="SELECT * FROM GROUPS WHERE ROW_ID IN (SELECT GROUP_ID FROM GROUP_USERS where USER_ID = " + req.session.ROW_ID + ")";
+				executeSelectQuery(sql_query,data,req,res,operation);
+			}else{
+				var accountoperation = require('./accountoperation');
+				accountoperation.userUnverified(res,"Invalid Session!! Please Login to continue.",{},req)
+			}
+			break;
+			
+		case "addUserToGroup" :
+			if(req.session.username != null && req.session.username != ""){
+				var sql_query ="INSERT INTO GROUP_USERS (GROUP_ID, USER_ID) VALUES ('" + data.ROW_ID + "', '" + req.session.ROW_ID + "')";
+				executeSelectQuery(sql_query,data,req,res,operation);
+			}else{
+				var accountoperation = require('./accountoperation');
+				accountoperation.userUnverified(res,"Invalid Session!! Please Login to continue.",{},req)
+			}
+			break;
+			
+		case "removeUserFromGroup" :
+			if(req.session.username != null && req.session.username != ""){
+				var sql_query ="DELETE FROM GROUP_USERS WHERE USER_ID = '" + req.session.ROW_ID + "' AND GROUP_ID = '" + data.ROW_ID + "'";
+				executeSelectQuery(sql_query,data,req,res,operation);
+			}else{
+				var accountoperation = require('./accountoperation');
+				accountoperation.userUnverified(res,"Invalid Session!! Please Login to continue.",{},req)
+			}
+			break;
+			
+		case "createGroup" :
+			if(req.session.username != null && req.session.username != ""){
+				var sql_query = "INSERT INTO GROUPS(GROUP_NAME, GROUP_INFO, IMAGE_URL,CREATED_BY) VALUES ('" + data.GROUP_NAME + "','" + data.GROUP_INFO + "','" + data.IMAGE_URL + "','" + req.session.ROW_ID + "');"
+				//var sql_query ="INSERT INTO GROUP_USERS (GROUP_ID, USER_ID) VALUES ('" + data.ROW_ID + "', '" + req.session.ROW_ID + "');";
+				executeSelectQuery(sql_query,data,req,res,operation);
+			}else{
+				var accountoperation = require('./accountoperation');
+				accountoperation.userUnverified(res,"Invalid Session!! Please Login to continue.",{},req)
+			}
+			break;
+
 		default:
 			break;
 		}
@@ -238,13 +309,17 @@ function executeSelectQuery(sql_stmt,data,req,res,operation){
 					if (!error) {
 						//console.log(fields);
 						if (operation == "verifyUser"
-								|| operation == "loginUser" || operation == "renderFriendListPage" || operation == "renderUserDetailsPage") {
+								|| operation == "loginUser" 
+									|| operation == "renderFriendListPage"
+									|| operation == "renderUserDetailsPage" 
+										|| operation == "updateProfilePicture" 
+											|| operation == "renderGroupsPage") {
 							try {
 								console.log(data);
 								if (data == null || data == "")
 									data = {};
-								console.log(results[0].PASSWORD);
-								console.log(data.password);
+								//console.log(results[0].PASSWORD);
+								//console.log(data.password);
 								if (req.session.username != ""
 										&& req.session.username != null) {
 									console
@@ -290,6 +365,15 @@ function executeSelectQuery(sql_stmt,data,req,res,operation){
 										console.log("Test" + operation);
 										accountoperation
 										.userDetailsPageRedirect(results[0],
+												res, req);
+									}else if(operation == "updateProfilePicture"){
+										accountoperation
+										.renderUserDetailsPage({},
+												res, req);
+									}else if(operation == "renderGroupsPage"){
+										console.log("Test" + operation);
+										accountoperation
+										.groupPageRedirect(results[0],
 												res, req);
 									}
 								} else {
@@ -349,13 +433,29 @@ function executeSelectQuery(sql_stmt,data,req,res,operation){
 												data, req);
 							}
 						}
+						//Async Request which dont needs rendering of pages
 						if (operation == "getNewsFeed"
-								|| operation == "loadFriendList" || operation == "loadMyFriendList" || operation == "loadPendingFriendList" || operation == "rejectFriendRequest" || operation == "acceptFriendRequest" || operation == "getLifeEvents") {
+								|| operation == "loadFriendList"
+									|| operation == "loadMyFriendList"
+										|| operation == "loadPendingFriendList"
+											|| operation == "rejectFriendRequest"
+												|| operation == "acceptFriendRequest" 
+													|| operation == "getLifeEvents"
+														|| operation == "loadAllGroups"
+															|| operation == "loadMyGroups"
+																||operation == "addUserToGroup"
+																	|| operation == "removeUserFromGroup"
+																		|| operation == "createGroup") {
 							res.status(200).send(results);
 						}
 						//if(operation ==  "acceptFriendRequest"){}
 					} else {
-						if (operation == "verifyUser" ||  operation == "renderFriendListPage"  || operation == "renderUserDetailsPage") {
+						if (operation == "verifyUser" 
+							|| operation == "loginUser"
+								||  operation == "renderFriendListPage"
+									|| operation == "renderUserDetailsPage"
+										|| operation == "updateProfilePicture"
+											|| operation == "renderGroupsPage") {
 							var newuser = {};
 							newuser.username = data.username;
 							console.log(error);
@@ -367,7 +467,17 @@ function executeSelectQuery(sql_stmt,data,req,res,operation){
 											newuser, req);
 						}
 						if (operation == "getNewsFeed"
-								|| operation == "loadFriendList"  || operation == "loadMyFriendList" || operation == "loadPendingFriendList"  || operation == "rejectFriendRequest" || operation ==  "acceptFriendRequest" || operation == "addOtherUserFriendRequest" || operation == "getLifeEvents") {
+								|| operation == "loadFriendList"  
+									|| operation == "loadMyFriendList"
+										|| operation == "loadPendingFriendList" 
+											|| operation == "rejectFriendRequest"
+												|| operation ==  "acceptFriendRequest"
+													|| operation == "getLifeEvents"
+														||operation == "loadAllGroups"
+															|| operation == "loadMyGroups"
+																||operation == "addUserToGroup"
+																	|| operation == "removeUserFromGroup"
+																		|| operation == "createGroup") {
 							res.status(403).send(error);
 						}
 					}
