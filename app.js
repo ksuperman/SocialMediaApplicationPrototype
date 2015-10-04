@@ -12,7 +12,8 @@ var express = require('express')
   , login = require('./routes/login')
   , session = require('client-sessions')
   , newsfeed = require('./routes/newsfeed')
-  , friend = require('./routes/friend') 
+  , friend = require('./routes/friend')
+  , user = require('./routes/user')
   , bcrypt = require('bcrypt');
 
 var app = express();
@@ -44,15 +45,24 @@ if ('development' == app.get('env')) {
 }
 
 app.get('/', routes.index);
+app.get('/home', login.home);
+app.get('/groups', user.groups);
+app.get('/friendslist', friend.friendslist);
+app.get('/userdetails', user.userdetails);
+
 app.post('/signup', signup.signup);
+app.post('/getLifeEvents',user.getLifeEvents);
 app.post('/login', login.login);
 app.post('/logout', login.logout);
-app.get('/home', login.home);
 app.post('/getNewsFeeds',newsfeed.getNewsFeed);
 app.post('/postStatusUpdate',newsfeed.postStatusUpdate);
 app.post('/loadFriendList',friend.loadFriendList);
+app.post('/loadMyFriendList',friend.loadMyFriendList);
+app.post('/loadPendingFriendList',friend.loadPendingFriendList);
+app.post('/acceptFriendRequest',friend.acceptFriendRequest);
+app.post('/rejectFriendRequest',friend.rejectFriendRequest);
 app.post('/sendFiendRequest',friend.sendFiendRequest);
-app.get('/groups', user.list);
+
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Social Media Prototype server listening on port ' + app.get('port'));

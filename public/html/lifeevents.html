@@ -1,0 +1,12 @@
+<div class="row" id="viewTwo">
+   <div class="col-md-12">
+      <ul class="media-list">
+         <li class="media" ng-repeat="event in lifeevents">
+            <a class="pull-left" href=""><i class="fa fa-street-view fa-2x"></i>{{event.DATE | date:'yyyy'}}</a>
+            <div class="media-body">
+               <h4 class="media-heading">{{event.EVENT_NAME}}</h4>
+            </div>
+         </li>
+      </ul>
+   </div>
+</div>

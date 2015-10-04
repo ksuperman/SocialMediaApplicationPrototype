@@ -70,7 +70,30 @@ body {
     overflow-y: auto;
     height:40%;
   }
+  
+  #friendlistFrndpage{
+    overflow-y: auto;
+    height:40%;
+  }
+  
+  
+  #myfriendlistFrndpage{
+  	overflow-x:hidden;
+    overflow-y: auto;
+    height:50%;
+  }
+  
+  #friendlistFrndpage{
+    overflow-y: auto;
+    height:40%;
+  }
+  
 }
+#overviewItems{
+	word-wrap: normal
+	padding:10px;
+}
+
 ///newly added
 .navbar-header {
   float: left;
@@ -123,7 +146,7 @@ a:hover {
 }
 
 #homebutton{
-	padding: 8px 15px;
+	padding: 0px 15px;
 }
 
 #ProfileDisplayLink{

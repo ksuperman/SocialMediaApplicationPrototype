@@ -1,0 +1,147 @@
+<html>
+  <head>
+    <title>friend's circle</title>
+    <link rel="icon" href="/images/favicon.ico">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.4/angular.js"></script>
+<!--     <script src="https://code.angularjs.org/1.3.6/angular-messages.js"></script>
+    <script src="https://code.angularjs.org/1.3.6/angular-route.js"></script> -->
+    <script type="text/javascript" src="/js/libJS.js"></script>
+    <script type="text/javascript" src="/js/friendListJS.js"></script>
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css"
+    rel="stylesheet" type="text/css">
+    <link href="/stylesheets/style.css" rel="stylesheet" type="text/css">
+    <link href="http://pingendo.github.io/pingendo-bootstrap/themes/default/bootstrap.css"
+    rel="stylesheet" type="text/css">
+  </head>
+  
+  <body ng-app="SocialMediaPrototypeFriendList" ng-controller="friendListController" ng-init="user=<%= user %>; listMyFriends(); loadFriendList(); loadPendingFriends();">
+    <div class="navbar navbar-fixed-top myBackground">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-ex-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/home"><img height="30" width="150" alt="friend's circle" ng-src="/images/Drawing.png"></a>
+        </div>
+        <div class="collapse navbar-collapse" id="navbar-ex-collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li class="active" id="homebutton">
+              <div class="row">
+                <form class="navbar-form navbar-right" role="search" name="homeForm" ng-submit="gotoHome()"
+                action="/home" method="get" novalidate="">
+                  <button type="submit" ng-disabled="homeForm.$invalid" class="btn btn-primary">Home</button>
+                </form>
+              </div>
+            </li>
+            <li class="active">
+              <form class="navbar-form navbar-right" role="search" name="logoutForm"
+              ng-submit="logoutUesr()" action="/logout" method="post" novalidate="">
+                <button type="submit" ng-disabled="logoutForm.$invalid" class="btn btn-primary">Logout</button>
+              </form>
+            </li>
+          </ul>
+          <p class="navbar-text navbar-right" id="ProfileDisplayLink">
+            <img ng-src="{{user.IMAGE_URL}}" alt="profile" style="min-height:40px;height:40px;">
+            <a id="toolbarname" href="/userdetails" class="navbar-link">{{user.firstname}}</a>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="section">
+      <div class="container">
+        <div class="row"></div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <div class="section">
+            <div class="container">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="section">
+                    <div class="container">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <h1 class="text-left">My Friends</h1><h3 class="text-left">Search<input type="text" ng-model="temp.FIRST_NAME"></h3>
+                          <p class="text-left"></p>
+                          <div class="alert alert-danger" ng-show="myfriendslist.error">
+                            <strong>Error! {{myfriendslist.errorMessage}}</strong>
+                          </div>
+                        </div>
+                      </div>
+                      <div  class="row" id="myfriendlistFrndpage">                      
+                      <div class="row" ng-repeat="friend in myfriendslist | filter : temp" ng-show="!myfriendslist.error">
+                        <div class="col-md-2">
+                          <img class="img-circle img-responsive" ng-src="{{friend.IMAGE_URL}}">
+                        </div>
+                        <div class="col-md-10">
+                          <h3 class="text-left">{{friend.FIRST_NAME}} {{friend.LAST_NAME}}</h3>
+                          <p class="text-left">Email : {{friend.EMAIL_ADDR}}</p>
+                        </div>
+                      </div></div>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="section">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 text-left">
+            <h1>Pending Friend Request</h1>
+          </div>
+          <div class="col-md-6 text-left">
+            <h1>Make New Friends</h1>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 text-left" id="friendlistFrndpage">
+          <div class="alert alert-danger" ng-show="Pendingfriendslist.error">
+            <strong>Error! {{Pendingfriendslist.errorMessage}}</strong>
+          </div>
+           <div class="row" ng-repeat="penfriends in Pendingfriendslist" ng-show="!Pendingfriendslist.error">
+           <div class="col-md-2">
+             <img class="img-circle img-responsive" ng-src="{{penfriends.IMAGE_URL}}">
+           </div>
+           <div class="col-md-10">
+             <h3 class="text-left">{{penfriends.FIRST_NAME}} {{penfriends.LAST_NAME}}</h3>
+             <p class="text-left"><a class="pull-left" ng-click="AcceptFriendRequest(penfriends)">Accept Request</a>
+             <br>
+             <a class="pull-left" ng-click="RejectFriendRequest(penfriends)">Reject Request</a></p>
+           </div>
+         </div>
+          </div>
+          <div class="col-md-6 text-left" id="friendlistFrndpage">
+           <div class="alert alert-danger" ng-show="friendslist.error">
+            <strong>Error! {{friendslist.errorMessage}}</strong>
+          </div>
+          <h3 class="text-left">Search<input type="text" ng-model="tempfriends.FIRST_NAME"></h3>
+          <div class="row" ng-repeat="friends in friendslist | filter : tempfriends" ng-show="!friendslist.error">
+           <div class="col-md-2">
+             <a class="pull-left" ng-click="sendFiendRequest(friends)"><img class="img-circle img-responsive" ng-src="{{friends.IMAGE_URL}}"></a>
+           </div>
+           <div class="col-md-10">
+             <h3 class="text-left">{{friends.FIRST_NAME}} {{friends.LAST_NAME}}</h3>
+             <p class="text-left">Email : {{friends.EMAIL_ADDR}}</p>
+           </div>
+         </div>
+         </div>
+        </div>
+      </div>
+    </div>
+  </body>
+
+</html>

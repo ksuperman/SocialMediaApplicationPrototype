@@ -20,7 +20,7 @@
   </head>
   
   <body ng-app="SocialMediaPrototypeHome" ng-controller="homePageController" ng-init="user=<%= user %>; loadNewsFeeds(); loadFriendList();">
-     <div class="navbar navbar-fixed-top myBackground">
+        <div class="navbar navbar-fixed-top myBackground">
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-ex-collapse">
@@ -29,13 +29,16 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand"><img height="30" width="150" alt="friend's circle" ng-src="/images/Drawing.png"></a>
+          <a class="navbar-brand" href="/home"><img height="30" width="150" alt="friend's circle" ng-src="/images/Drawing.png"></a>
         </div>
         <div class="collapse navbar-collapse" id="navbar-ex-collapse">
           <ul class="nav navbar-nav navbar-right">
             <li class="active" id="homebutton">
               <div class="row">
-                <button type="button" class="btn btn-primary">Home</button>
+                <form class="navbar-form navbar-right" role="search" name="homeForm" ng-submit="gotoHome()"
+                action="/home" method="get" novalidate="">
+                  <button type="submit" ng-disabled="homeForm.$invalid" class="btn btn-primary">Home</button>
+                </form>
               </div>
             </li>
             <li class="active">
@@ -47,7 +50,7 @@
           </ul>
           <p class="navbar-text navbar-right" id="ProfileDisplayLink">
             <img ng-src="{{user.IMAGE_URL}}" alt="profile" style="min-height:40px;height:40px;">
-            <a id="toolbarname" href="/group" class="navbar-link">{{user.firstname}}</a>
+            <a id="toolbarname" href="/userdetails" class="navbar-link">{{user.firstname}}</a>
           </p>
         </div>
       </div>
@@ -63,7 +66,7 @@
           <div class="col-md-3">
             <ul class="media-list">
               <li class="media">
-                <a class="pull-left" href="#"><img class="media-object" ng-src="{{user.IMAGE_URL}}" height="64" width="64"></a>
+                <a class="pull-left" href="/userdetails"><img class="media-object" ng-src="{{user.IMAGE_URL}}" height="64" width="64"></a>
                 <div class="media-body">
                   <h4 class="media-heading">{{user.firstname}} {{user.lastname}}</h4>
                   <p></p>
@@ -72,7 +75,7 @@
             </ul>
             <ul class="media-list">
               <li class="media">
-                <a class="pull-left" href="/Friends"><img class="media-object" src="https://hdwallpapers.cat/wallpaper_high_contrast/two_friends_happiness_colors_smile_abstract_high_contrast_hd-wallpaper-1559778.jpg" height="54" width="54"></a>
+                <a class="pull-left" href="/friendslist"><img class="media-object" src="https://hdwallpapers.cat/wallpaper_high_contrast/two_friends_happiness_colors_smile_abstract_high_contrast_hd-wallpaper-1559778.jpg" height="54" width="54"></a>
                 <div class="media-body">
                   <h4 class="media-heading">Friends</h4>
 
@@ -113,7 +116,7 @@
                 <div class="row">
                   <div class="col-md-2">
                     <div class="thumbnail">
-                      <img ng-src="{{statusupdate.IMAGE_URL}}" class="img-responsive">
+                      <img ng-src="{{user.IMAGE_URL}}" class="img-responsive">
                     </div>
                   </div>
                   <div class="col-md-10 text-justify">
@@ -139,7 +142,7 @@
                   <div class="col-md-10 text-justify">
                     <blockquote>
                       <p>{{feeds.POST_MESSAGE}}</p>
-                      <footer>{{feeds.USER_ID}}</footer>
+                      <footer>{{feeds.FIRST_NAME}} {{feeds.LAST_NAME}}</footer>
                     </blockquote>
                   </div>
                 </div>
@@ -170,6 +173,9 @@
               </div>
               <div class="alert alert-danger" ng-show="friendrequest.error">
                 <strong>Error! {{friendrequest.errorMessage}}</strong>
+              </div>
+                <div class="alert alert-success" ng-show="friendrequest.sucess">
+                <strong>Success!</strong> Friends Request sent Sucessfully !!!
               </div>
               </div>
             </div>

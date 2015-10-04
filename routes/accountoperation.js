@@ -50,9 +50,47 @@ module.exports = {
 		loadFriendList : function(user,res,req){
 			var DBConnection = require('./DBConnection');
 			DBConnection.handleDBRequest("loadFriendList",user,res,req);
-		},sendFiendRequest : function(user,res,req){
+		},
+		sendFiendRequest : function(user,res,req){
 			var DBConnection = require('./DBConnection');
 			DBConnection.handleDBRequest("sendFiendRequest",user,res,req);
+		},
+		renderFriendListPage : function(user,res,req){
+			var DBConnection = require('./DBConnection');
+			DBConnection.handleDBRequest("renderFriendListPage",user,res,req);
+		},
+		FriendListPageRedirect : function(data,res, req){
+			console.log(data);
+			res.render('friendslist', { user: JSON.stringify(data)});	
+		},
+		loadMyFriendList : function(user,res,req){
+			var DBConnection = require('./DBConnection');
+			DBConnection.handleDBRequest("loadMyFriendList",user,res,req);
+		},
+		loadPendingFriendList : function(user,res,req){
+			var DBConnection = require('./DBConnection');
+			DBConnection.handleDBRequest("loadPendingFriendList",user,res,req);
+		},
+		rejectFriendRequest : function(user,res,req){
+			var DBConnection = require('./DBConnection');
+			DBConnection.handleDBRequest("rejectFriendRequest",user,res,req);
+		},
+		acceptFriendRequest : function(user,res,req){
+			var DBConnection = require('./DBConnection');
+			DBConnection.handleDBRequest("acceptFriendRequest",user,res,req);
+			//DBConnection.handleDBRequest("addOtherUserFriendRequest",user,res,req);
+		},
+		renderUserDetailsPage : function(user,res,req){
+			var DBConnection = require('./DBConnection');
+			DBConnection.handleDBRequest("renderUserDetailsPage",user,res,req);
+		},
+		userDetailsPageRedirect : function(data,res, req){
+			console.log(data);
+			res.render('userdetails', { user: JSON.stringify(data)});	
+		},
+		getLifeEvents : function(user,res,req){
+			var DBConnection = require('./DBConnection');
+			DBConnection.handleDBRequest("getLifeEvents",user,res,req);
 		}
 };
 

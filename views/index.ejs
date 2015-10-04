@@ -65,7 +65,7 @@
                 <div class="col-md-6 nopadding">
                   <div class="form-group has-feedback">
                     <input class="form-control input-lg" id="user.firstname" name="firstname" placeholder="First Name"
-                    type="text" ng-model="user.firstname" required>
+                    type="text" ng-model="user.firstname" tooltip="Enter your first name!" tooltip-placement="top" tooltip-trigger="mouseenter" tooltip-enable="!user.firstname" required>
                     <p ng-show="signUpForm.firstname.$invalid && !signUpForm.firstname.$pristine" class="help-block">First Name is required.</p>
                   </div>
                 </div>

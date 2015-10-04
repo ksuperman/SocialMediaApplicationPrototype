@@ -1,8 +1,22 @@
+exports.userdetails = function(req,res){
+	var accountoperation = require('./accountoperation');
+	if(req.session.username != null && req.session.username != ""){
+		accountoperation.renderUserDetailsPage({},res,req);
+	}
+	else
+		accountoperation.userUnverified(res, "Invalid Session Please Login to Continue!!", {}, req);
+	//res.render('userdetails', { user: JSON.stringify({})});
+};
 
-/*
- * GET users listing.
- */
+exports.getLifeEvents = function(req,res){
+	var accountoperation = require('./accountoperation');
+	if(req.session.username != null && req.session.username != ""){
+		accountoperation.getLifeEvents({},res,req);
+	}
+	else
+		accountoperation.userUnverified(res, "Invalid Session Please Login to Continue!!", {}, req);
+};
 
-exports.list = function(req, res){
-  res.send("respond with a resource");
+exports.groups = function(req,res){
+	
 };

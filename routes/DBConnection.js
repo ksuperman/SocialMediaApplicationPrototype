@@ -64,7 +64,12 @@ module.exports = {
 		case "getNewsFeed" :
 			if(req.session.username != null && req.session.username != "")
 				data.username =  req.session.username;
-			var sql_query = "SELECT * FROM NEWSFEEDS WHERE USER_ID = ( SELECT ROW_ID FROM USERS WHERE EMAIL_ADDR= '" + data.username + "')";
+		//	var sql_query = "SELECT * FROM NEWSFEEDS WHERE USER_ID = ( SELECT ROW_ID FROM USERS WHERE EMAIL_ADDR= '" + data.username + "')";
+			
+			var sql_query = "SELECT news.POST_MESSAGE as 'POST_MESSAGE',user.FIRST_NAME AS 'FIRST_NAME',user.IMAGE_URL as'IMAGE_URL',user.LAST_NAME AS 'LAST_NAME'";
+				sql_query += "FROM NEWSFEEDS news, USERS user where user.ROW_ID = news.USER_ID AND ";
+				sql_query += "(news.USER_ID = " + req.session.ROW_ID + " OR news.USER_ID IN (SELECT USER2 FROM FRIENDS_LIST WHERE USER1 = '" + req.session.ROW_ID + "' AND ACCEPTED = 'Y')) ORDER BY news.TIMESTAMP DESC";
+			
 			executeSelectQuery(sql_query,data,req,res,operation);
 			break;
 			
@@ -87,14 +92,14 @@ module.exports = {
 			
 		case "loadFriendList" :
 			if(req.session.username != null && req.session.username != ""){
-				var sql_query = "SELECT * FROM `USERS` WHERE ROW_ID <> " + req.session.ROW_ID + " AND ROW_ID NOT IN (SELECT USER2 FROM FRIENDS_LIST WHERE USER1 = " + req.session.ROW_ID + ") LIMIT 15";
+				var sql_query = "SELECT ROW_ID, FIRST_NAME, LAST_NAME, EMAIL_ADDR, DATE_OF_BIRTH,GENDER, IMAGE_URL FROM USERS WHERE ROW_ID <> " + req.session.ROW_ID + " AND ROW_ID NOT IN (SELECT USER2 FROM FRIENDS_LIST WHERE USER1 = " + req.session.ROW_ID + ") LIMIT 15";
 				executeSelectQuery(sql_query,data,req,res,operation);
 			}else{
 				var accountoperation = require('./accountoperation');
 				accountoperation.userUnverified(res,"Invalid Session!! Please Login to continue.",{},req)
 			}
-
 			break;
+			
 		case "sendFiendRequest" :
 			if(req.session.username != null && req.session.username != ""){
 				var sql_stmt = 'INSERT INTO FRIENDS_LIST SET ?';
@@ -111,6 +116,94 @@ module.exports = {
 			}
 			break;
 			
+		case "renderFriendListPage" :
+			if(req.session.username != null && req.session.username != ""){
+				var sql_query = "SELECT ROW_ID, FIRST_NAME, LAST_NAME, EMAIL_ADDR, DATE_OF_BIRTH,GENDER, IMAGE_URL FROM USERS WHERE ROW_ID = " + req.session.ROW_ID;
+				executeSelectQuery(sql_query,data,req,res,operation);
+			}else{
+				var accountoperation = require('./accountoperation');
+				accountoperation.userUnverified(res,"Invalid Session!! Please Login to continue.",{},req)
+			}
+			break;
+			
+		case "loadMyFriendList" :
+			if(req.session.username != null && req.session.username != ""){
+				var sql_query = "SELECT ROW_ID, FIRST_NAME, LAST_NAME, EMAIL_ADDR, DATE_OF_BIRTH,GENDER, IMAGE_URL FROM USERS WHERE ROW_ID IN (SELECT USER2 FROM FRIENDS_LIST WHERE USER1 = " + req.session.ROW_ID + " AND ACCEPTED = 'Y')";
+				executeSelectQuery(sql_query,data,req,res,operation);
+			}else{
+				var accountoperation = require('./accountoperation');
+				accountoperation.userUnverified(res,"Invalid Session!! Please Login to continue.",{},req)
+			}
+			break;
+			
+		case "loadPendingFriendList" :
+			if(req.session.username != null && req.session.username != ""){
+				var sql_query = "SELECT ROW_ID, FIRST_NAME, LAST_NAME, EMAIL_ADDR, DATE_OF_BIRTH,GENDER, IMAGE_URL FROM USERS WHERE ROW_ID IN (SELECT USER1 FROM FRIENDS_LIST WHERE USER2 = " + req.session.ROW_ID + " AND ACCEPTED = 'N')";
+				executeSelectQuery(sql_query,data,req,res,operation);
+			}else{
+				var accountoperation = require('./accountoperation');
+				accountoperation.userUnverified(res,"Invalid Session!! Please Login to continue.",{},req)
+			}
+			break;
+			
+		case "rejectFriendRequest" :
+			if(req.session.username != null && req.session.username != ""){
+				var sql_query = "DELETE FROM FRIENDS_LIST WHERE USER1 = " + req.body.ROW_ID + " AND USER2 = " + req.session.ROW_ID + " AND ACCEPTED = 'N'";
+				executeSelectQuery(sql_query,data,req,res,operation);
+			}else{
+				var accountoperation = require('./accountoperation');
+				accountoperation.userUnverified(res,"Invalid Session!! Please Login to continue.",{},req)
+			}
+			break;
+			
+		case "acceptFriendRequest" :
+			if(req.session.username != null && req.session.username != ""){
+				var sql_query = "UPDATE FRIENDS_LIST SET ACCEPTED = 'Y' WHERE USER1 = " + req.body.ROW_ID + " AND USER2 = " + req.session.ROW_ID + " AND ACCEPTED = 'N';";
+				sql_query += "INSERT INTO FRIENDS_LIST (USER1, USER2, ACCEPTED) VALUES ('" + req.session.ROW_ID + "', '" + req.body.ROW_ID + "', 'Y');";
+				executeSelectQuery(sql_query,data,req,res,operation);
+			}else{
+				var accountoperation = require('./accountoperation');
+				accountoperation.userUnverified(res,"Invalid Session!! Please Login to continue.",{},req)
+			}
+			break;
+		/*	
+		case "addOtherUserFriendRequest" :
+			if(req.session.username != null && req.session.username != ""){
+				var sql_stmt = 'INSERT INTO FRIENDS_LIST SET ?';
+				var newfriendReq = {};
+				
+				newfriendReq.USER1 = req.session.ROW_ID;
+				newfriendReq.USER2 = req.body.ROW_ID;
+				newfriendReq.ACCEPTED = "Y";
+				
+				executeInsertQuery(sql_stmt,newfriendReq,req,res,operation);
+				
+			}else{
+				var accountoperation = require('./accountoperation');
+				accountoperation.userUnverified(res,"Invalid Session!! Please Login to continue.",{},req)
+			}
+			break;
+			*/
+		case "renderUserDetailsPage" :
+			if(req.session.username != null && req.session.username != ""){
+				var sql_query = "SELECT usd.PHONE as 'PHONE',usd.CURR_CITY as 'CURR_CITY',usd.ABOUT_ME,usd.HOME_ADDR as 'HOME_ADDR', usd.WEB_URL as 'WEB_URL', usd.PROFESSIONAL_SKILLS as 'PROFESSIONAL SKILLS', usd.COMPANY as 'COMPANY', usd.COLLEGE as 'COLLEGE', usd.HIGH_SCHL as 'HIGH_SCHL',usr.ROW_ID as 'ROW_ID', usr.FIRST_NAME as 'FIRST_NAME', usr.LAST_NAME as 'LAST_NAME', usr.EMAIL_ADDR as 'EMAIL_ADDR', usr.DATE_OF_BIRTH as 'DATE_OF_BIRTH', usr.PASSWORD as 'PASSWORD', usr.GENDER as 'GENDER', usr.IMAGE_URL as 'IMAGE_URL' FROM USER_DETAILS usd , USERS usr WHERE usd.USER_ID = usr.ROW_ID AND usr.ROW_ID =" + req.session.ROW_ID;
+				executeSelectQuery(sql_query,data,req,res,operation);
+			}else{
+				var accountoperation = require('./accountoperation');
+				accountoperation.userUnverified(res,"Invalid Session!! Please Login to continue.",{},req)
+			}
+			break;
+			
+		case "getLifeEvents" :
+			if(req.session.username != null && req.session.username != ""){
+				var sql_query = "SELECT ROW_ID, USER_ID, EVENT_NAME, DATE FROM LIFE_EVENTS WHERE USER_ID = " + req.session.ROW_ID + " ORDER BY DATE DESC";
+				executeSelectQuery(sql_query,data,req,res,operation);
+			}else{
+				var accountoperation = require('./accountoperation');
+				accountoperation.userUnverified(res,"Invalid Session!! Please Login to continue.",{},req)
+			}
+			break;
+			
 		default:
 			break;
 		}
@@ -120,6 +213,7 @@ module.exports = {
 function getNewConnectionFromDB(){
 	var mysql = require('mysql');
 	var dbconnection = mysql.createConnection({
+	multipleStatements: true,
 	host : 'localhost',
 	user : 'root',
 	password : 'YyX26VXPxLHAGQK8',
@@ -130,7 +224,7 @@ function getNewConnectionFromDB(){
 
 function executeSelectQuery(sql_stmt,data,req,res,operation){
 	try {
-		console.log("	executeSelectQuery" + req);
+		console.log("executeSelectQuery" + req);
 		var mysql = require('mysql');
 		var bcrypt = require('bcrypt');
 		var accountoperation = require('./accountoperation');
@@ -144,7 +238,7 @@ function executeSelectQuery(sql_stmt,data,req,res,operation){
 					if (!error) {
 						//console.log(fields);
 						if (operation == "verifyUser"
-								|| operation == "loginUser") {
+								|| operation == "loginUser" || operation == "renderFriendListPage" || operation == "renderUserDetailsPage") {
 							try {
 								console.log(data);
 								if (data == null || data == "")
@@ -183,10 +277,20 @@ function executeSelectQuery(sql_stmt,data,req,res,operation){
 										accountoperation.userVerified(
 												data, res, req);
 									else if (operation == "loginUser") {
-										console.log("Test");
+										console.log("Test" + operation);
 										accountoperation
 												.homeRedirection(data,
 														res, req);
+									}else if(operation == "renderFriendListPage"){
+										console.log("Test" + operation);
+										accountoperation
+										.FriendListPageRedirect(data,
+												res, req);
+									}else if(operation == "renderUserDetailsPage"){
+										console.log("Test" + operation);
+										accountoperation
+										.userDetailsPageRedirect(results[0],
+												res, req);
 									}
 								} else {
 									console.log("no session found!!");
@@ -246,11 +350,12 @@ function executeSelectQuery(sql_stmt,data,req,res,operation){
 							}
 						}
 						if (operation == "getNewsFeed"
-								|| operation == "loadFriendList") {
+								|| operation == "loadFriendList" || operation == "loadMyFriendList" || operation == "loadPendingFriendList" || operation == "rejectFriendRequest" || operation == "acceptFriendRequest" || operation == "getLifeEvents") {
 							res.status(200).send(results);
 						}
+						//if(operation ==  "acceptFriendRequest"){}
 					} else {
-						if (operation == "verifyUser") {
+						if (operation == "verifyUser" ||  operation == "renderFriendListPage"  || operation == "renderUserDetailsPage") {
 							var newuser = {};
 							newuser.username = data.username;
 							console.log(error);
@@ -262,7 +367,7 @@ function executeSelectQuery(sql_stmt,data,req,res,operation){
 											newuser, req);
 						}
 						if (operation == "getNewsFeed"
-								|| operation == "loadFriendList") {
+								|| operation == "loadFriendList"  || operation == "loadMyFriendList" || operation == "loadPendingFriendList"  || operation == "rejectFriendRequest" || operation ==  "acceptFriendRequest" || operation == "addOtherUserFriendRequest" || operation == "getLifeEvents") {
 							res.status(403).send(error);
 						}
 					}
@@ -348,7 +453,10 @@ function executeInsertQuery(sql_stmt,data,req,res,operation){
 		console.log(e);
 	}
 	finally{
-		if(dbconnection != null && dbconnection!= "")
+		if(dbconnection != null && dbconnection!= ""){
 			dbconnection.end();
+			console.log("Connection Dropped");
+		}
+			
 	}
 }

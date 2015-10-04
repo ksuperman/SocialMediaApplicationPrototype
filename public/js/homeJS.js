@@ -85,6 +85,7 @@ SocialMediaPrototypeHome.controller('homePageController', function($scope,$http)
 				}).then(function successCallback(response) {
 					console.log("Response from Server for Friends ++ " + JSON.stringify(response));
 					$scope.friendrequest = {};
+					$scope.friendrequest.sucess = true;
 					$scope.loadFriendList();
 				}, function errorCallback(response) {
 					$scope.friendrequest.errorMessage = "There was an error sending your friend request Please Try Again!!";
@@ -92,5 +93,5 @@ SocialMediaPrototypeHome.controller('homePageController', function($scope,$http)
 					console.log("Error In friendrequest " + JSON.stringify(response));	
 					console.log("Friends list JSON : " + JSON.stringify($scope.friendrequest));	
 			});
-	}
+	};
 });
