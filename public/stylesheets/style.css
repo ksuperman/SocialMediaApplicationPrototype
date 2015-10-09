@@ -12,8 +12,16 @@
 	 color: #FFFFFF;
 }
 
+#newsfeedContainer{
+	border-color: #FFFFFF;
+	border: none;
+}
 
-
+.list-group-item{
+	margin-top:10px;
+	margin-bottom: 10px;
+	border-style: inset;
+}
 body {
   background-color: #DFEDRE;
   margin-top: 100px;
@@ -80,13 +88,27 @@ body {
   #myfriendlistFrndpage{
   	overflow-x:hidden;
     overflow-y: auto;
-    height:50%;
+    height:20%;
   }
   
   #friendlistFrndpage{
     overflow-y: auto;
     height:40%;
   }
+  
+  .images{
+  padding: 0px;
+  margin: 0px;
+  border: thin;
+
+  }
+  
+  .row-eq-height {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display:         flex;
+}
   
 }
 #overviewItems{

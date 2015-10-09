@@ -62,8 +62,8 @@
                   <img class="img-responsive" ng-src="{{user.IMAGE_URL}}">
                   <form action="/uploadProfilePic" method="post", enctype="multipart/form-data" role="search" name="ProfileImageForm"
                         ng-submit="uploadProfilePic()" novalidate="">
-                        <input type="file" ng-model="pofilepic" name="pofilepic">
-                        <button type="submit" ng-disabled="ProfileImageForm.$invalid" class="btn btn-primary" name="submit">Upload Picture</button>
+                        <input type="file" multiple accept='image/*' ng-model="pofilepic" name="pofilepic" style="padding: 1px 1px;background-color:#3B5998;">
+                        <button type="submit" ng-disabled="ProfileImageForm.$invalid" class="btn btn-primary" name="submit" style="padding: 1px 1px;background-color:#3B5998;">Upload Picture</button>
                   </form>
                </div>
                <div class="col-md-9">

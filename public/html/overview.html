@@ -3,20 +3,20 @@
         <div class="col-md-6">
           <ul class="media-list">
             <li class="media">
-              <a class="pull-left" href=""><img ng-src="http://www.wbfn.org/home/sites/default/files/work%20icon.jpg" height="44" width="44"></a>
+              <a class="pull-left" href=""><img ng-src="/images/work_icon.jpg" height="44" width="44"></a>
               <div class="media-body">
                 <h4 class="media-heading">Employee at {{user.COMPANY}}</h4>
               </div>
             </li>
             <li class="media">
-              <a class="pull-left" href=""><img class="media-object" ng-src="https://cdn2.iconfinder.com/data/icons/windows-8-metro-style/128/school.png" height="44" width="44"></a>
+              <a class="pull-left" href=""><img class="media-object" ng-src="/images/school_icon.png" height="44" width="44"></a>
               <div class="media-body">
                 <h4 class="media-heading">Studied at {{user.COLLEGE}}</h4>
                 <p>High school was done at {{user.HIGH_SCHL}}</p>
               </div>
             </li>
             <li class="media">
-              <a class="pull-left" href=""><img class="media-object" ng-src="https://image.freepik.com/free-icon/modern-city-towers-buildings-group_318-62163.jpg" height="44" width="44"></a>
+              <a class="pull-left" href=""><img class="media-object" ng-src="/images/current_place_icon.jpg" height="44" width="44"></a>
               <div class="media-body">
                 <h4 class="media-heading">Lives in {{user.CURR_CITY}}</h4>
               </div>
@@ -25,11 +25,11 @@
         </div>
         <div class="col-md-6">
           <ul class="list-group" Id="overviewItems">
-            <li class="list-group-item"><i class="fa fa-mobile fa-lg"></i>  {{user.PHONE}}</li>
-            <li class="list-group-item"><i class="fa fa-envelope-o fa-lg"></i> {{user.EMAIL_ADDR}}</li>
-            <li class="list-group-item"><i class="fa fa-map-marker fa-lg"></i>  {{user.HOME_ADDR}}</li>
-            <li class="list-group-item"><i class="fa fa-linkedin-square fa-lg"></i>  {{user.WEB_URL}}</li>
-            <li class="list-group-item"><i class="fa fa-birthday-cake fa-lg"></i>  {{user.DATE_OF_BIRTH | date}}</li>
+            <li class="list-group-item"><i class="fa fa-mobile fa-lg"></i>&nbsp;&nbsp;{{user.PHONE}}</li>
+            <li class="list-group-item"><i class="fa fa-envelope-o fa-lg"></i>&nbsp;&nbsp;{{user.EMAIL_ADDR}}</li>
+            <li class="list-group-item"><i class="fa fa-map-marker fa-lg"></i>&nbsp;&nbsp;{{user.HOME_ADDR}}</li>
+            <li class="list-group-item"><i class="fa fa-linkedin-square fa-lg"></i>&nbsp;&nbsp;{{user.WEB_URL}}</li>
+            <li class="list-group-item"><i class="fa fa-birthday-cake fa-lg"></i>&nbsp;&nbsp;{{user.DATE_OF_BIRTH | date}}</li>
           </ul>
         </div>
       </div>

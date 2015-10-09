@@ -2,9 +2,9 @@
    <div class="col-md-12">
       <ul class="media-list">
          <li class="media" ng-repeat="event in lifeevents">
-            <a class="pull-left" href=""><i class="fa fa-street-view fa-2x"></i>{{event.DATE | date:'yyyy'}}</a>
+            <a class="pull-left" href=""style="color: black;"><i class="fa fa-street-view fa-2x" style="color: black;"></i>&nbsp;&nbsp;{{event.DATE | date:'yyyy'}}&nbsp;&nbsp;</a>
             <div class="media-body">
-               <h4 class="media-heading">{{event.EVENT_NAME}}</h4>
+               <h5 class="media-heading">{{event.EVENT_NAME}}</h5>
             </div>
          </li>
       </ul>

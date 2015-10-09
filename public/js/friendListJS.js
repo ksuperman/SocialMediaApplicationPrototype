@@ -132,6 +132,27 @@ SocialMediaPrototypeFriendList.controller('friendListController', function($scop
 			});
 	};
 	
+	$scope.unFriendUserRequest = function(friends){
+		console.log("unFriendUserRequest" + friends.ROW_ID);
+		$http({
+			  method: 'POST',
+			  url: '/unFriendUserRequest',
+			  headers: {
+				   'Content-Type': 'application/json'
+			  },
+			  data: JSON.stringify(friends)
+				}).then(function successCallback(response) {
+					console.log("Response from Server for Friends ++ " + JSON.stringify(response));
+					$scope.loadFriendList();
+					$scope.listMyFriends();
+					$scope.loadPendingFriends();
+				}, function errorCallback(response) {
+					$scope.Pendingfriendslist.errorMessage = "There was an error Rejecting this Friend Request!!";
+					$scope.Pendingfriendslist.error = true;
+					console.log("Error In Friends request" + JSON.stringify(response));	
+					console.log("Friends list JSON : " + JSON.stringify($scope.Pendingfriendslist));	
+			});
+	};
 	
 	
 });

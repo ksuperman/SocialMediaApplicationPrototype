@@ -12,10 +12,10 @@ socialMediaApp.controller('loginController', function($scope) {
 
 socialMediaApp.controller('signUpController', function($scope){
 		$scope.user = {};
-		//$scope.user.IMAGE_URL="http://www.almostsavvy.com/wp-content/uploads/2011/04/profile-photo.jpg";
+		//$scope.user.IMAGE_URL="/images/profile-photo_default.jpg";
 		$scope.submitSignUpForm = function($event){
 		try {
-			$scope.user.IMAGE_URL="http://www.almostsavvy.com/wp-content/uploads/2011/04/profile-photo.jpg";
+			$scope.user.IMAGE_URL="/images/profile-photo_default.jpg";
 			$scope.user.errorInForm = false;
 			console.log($scope.user.firstname);
 			console.log($scope.user.lastName);
@@ -51,7 +51,7 @@ socialMediaApp.controller('signUpController', function($scope){
 				$scope.user.errorMessage = "";
 				$scope.user.errorInForm = false;
 			}
-			$scope.user.IMAGE_URL="http://www.almostsavvy.com/wp-content/uploads/2011/04/profile-photo.jpg";
+			$scope.user.IMAGE_URL="/images/profile-photo_default.jpg";
 			console.log("Request for New Account : " + JSON.stringify($scope.user));
 			if ($scope.signUpForm.$valid && !$scope.user.errorInForm) {
 				console.log(JSON.stringify($scope.user));
@@ -85,6 +85,7 @@ socialMediaApp.controller('signUpController', function($scope){
 		}	
 	};
 });
+
 /*
 socialMediaApp.directive('watchChange', function() {
     return {

@@ -68,23 +68,23 @@
               <li class="media">
                 <a class="pull-left" href="/userdetails"><img class="media-object" ng-src="{{user.IMAGE_URL}}" height="64" width="64"></a>
                 <div class="media-body">
-                  <h4 class="media-heading">{{user.firstname}} {{user.lastname}}</h4>
+                  <h4 class="media-heading"><a href="/userdetails" style="color:black;">{{user.firstname}} {{user.lastname}}</a></h4>
                   <p></p>
                 </div>
               </li>
             </ul>
             <ul class="media-list">
               <li class="media">
-                <a class="pull-left" href="/friendslist"><img class="media-object" src="https://hdwallpapers.cat/wallpaper_high_contrast/two_friends_happiness_colors_smile_abstract_high_contrast_hd-wallpaper-1559778.jpg" height="54" width="54"></a>
+                <a class="pull-left" href="/friendslist"><img class="media-object" src="/images/friend_list_icon.png" height="54" width="54"></a>
                 <div class="media-body">
-                  <h4 class="media-heading">Friends</h4>
+                  <h4 class="media-heading"><a href="/friendslist" style="color:black;">Friends</a></h4>
 
                 </div>
               </li>
               <li class="media">
-                <a class="pull-left" href="/groups"><img class="media-object" src="http://previews.123rf.com/images/fffranz/fffranz1312/fffranz131200046/24441438-abstract-schematic-illustration-of-groups-and-behavior-therapy-Stock-Vector.jpg" height="54" width="54"></a>
+                <a class="pull-left" href="/groups"><img class="media-object" src="/images/Group_Icon.jpg" height="54" width="54"></a>
                 <div class="media-body">
-                  <h4 class="media-heading">Groups</h4>
+                  <h4 class="media-heading"><a href="/groups" style="color:black;">Groups</a></h4>
                 </div>
               </li>
             </ul>
@@ -92,34 +92,24 @@
           <div class="col-md-7" id="newsfeed">
             <div class="panel panel-primary">
               <div class="panel-heading">
-                <h3 class="panel-title">Update Status</h3>
+                <h3 class="panel-title"><img style="min-height:23px;height:23px;" alt="" src="/images/status_update_icon.png">&nbsp;&nbsp;Update Status</h3>
               </div>
               <div class="panel-body text-right">
-                <input type="textarea" style="width: 100%; border: 1px solid #333; padding: 5px;padding-right: 10px;"
+                <input type="textarea" style="width: 100%; border: 1px solid #333; padding: 5px 8px;padding-right: 10px;"
                 ng-model="statusupdate.POST_MESSAGE" name="POST_MESSAGE">
-                <br>
-                <a class="btn btn-primary btn-sm" style="align : left; border: 1px solid #333; padding: 4px;padding-right: 10px;"
-                ng-click="postStatusUpdate()"><i class="fa fa-star fa-fw"></i>Post</a>
+                <button class="btn btn-primary" ng-click="postStatusUpdate()" style="padding: 1px 5px;background-color:#3B5998;"><b>Post</b></button>
               </div>
             </div>
-            <ul class="list-group text-left">
-              <!-- <label class="text-left">Update Status :</label>
-		   <li class="list-group-item text-right">
-		      <input type="textarea" style="width: 100%; border: 1px solid #333; padding: 5px;padding-right: 10px;" ng-model="statusupdate.POST_MESSAGE" name="POST_MESSAGE">
-		      <br>
-		      <a class="btn btn-primary btn-sm" style="align : left; border: 1px solid #333; padding: 4px;padding-right: 10px;" ng-click="postStatusUpdate()"><i class="fa fa-star fa-fw"></i>Post</a>
-		   </li> -->
-              <li class="list-group-item text-right" ng-show="statusupdate.POST_MESSAGE.length">
+            <ul class="media-list text-left">
+              <li class="media text-right" ng-show="statusupdate.POST_MESSAGE.length">
                 <div class="alert alert-danger" ng-show="statusupdate.error">
                   <strong>Error! {{statusupdate.errorMessage}}</strong>
                 </div>
                 <div class="row">
-                  <div class="col-md-2">
-                    <div class="thumbnail">
+                  <div class="col-md-3 text-center" >
                       <img ng-src="{{user.IMAGE_URL}}" class="img-responsive">
-                    </div>
                   </div>
-                  <div class="col-md-10 text-justify">
+                  <div class="col-md-9 text-left">
                     <blockquote>
                       <p>{{statusupdate.POST_MESSAGE}}</p>
                       <footer>{{user.firstname}}</footer>
@@ -152,7 +142,7 @@
           <div class="col-md-2">
             <div class="row">
               <div class="col-md-12">
-                <h2 class="text-center">Join New Groups</h2>
+                <h3 class="text-center">Join Groups</h3>
               </div>
             </div>
             <div class="row" id="GroupsList">
@@ -162,9 +152,10 @@
        			 </div>
                  <ul class="media-list" id="allGroupsList">
                     <li class="media" ng-repeat="group in allgroups">
-                       <a class="pull-left" href="" ng-click="addUserToGroup(group)"><img class="media-object" ng-src={{group.IMAGE_URL}} height="54" width="54"></a>
+                       <a class="pull-left" href="" ng-click="addUserToGroup(group)" style="padding: 1px 1px;"><img class="media-object" ng-src={{group.IMAGE_URL}} height="54" width="54"></a>
                        <div class="media-body">
-                          <h4 class="media-heading">{{group.GROUP_NAME}}</h4>
+                          <h4 class="media-heading">&nbsp;&nbsp;{{group.GROUP_NAME}}</h4>
+                          &nbsp;&nbsp;&nbsp;<button class="btn btn-primary" ng-click="addUserToGroup(group)" style="padding: 1px 1px;background-color:#3B5998; color: #E8F3F0;"><b>Join Group</b></button>
                           <!-- <p>{{group.GROUP_INFO}}</p> -->
                        </div>
                     </li>
@@ -173,7 +164,7 @@
             </div>
             <div class="row">
               <div class="col-md-12">
-                <h3 class="text-center">Make New Friends</h3>
+                <h3 class="text-center">Make Friends</h3>
                <div class="alert alert-danger" ng-show="friendslist.error">
                 <strong>Error! {{friendslist.errorMessage}}</strong>
               </div>
@@ -181,7 +172,7 @@
                 <strong>Error! {{friendrequest.errorMessage}}</strong>
               </div>
                 <div class="alert alert-success" ng-show="friendrequest.sucess">
-                <strong>Success!</strong> Friends Request sent Sucessfully !!!
+                <strong>Success!</strong> Friends Request sent Successfully !!!
               </div>
               </div>
             </div>
@@ -192,6 +183,7 @@
                   <a class="pull-left" ng-click="sendFiendRequest(friends)"><img class="media-object"  ng-src="{{friends.IMAGE_URL}}" height="44" width="44"></a>
                   <div class="media-body">
                     <h4 class="media-heading">{{friends.FIRST_NAME}} {{friends.LAST_NAME}}</h4>
+                    <button class="btn btn-primary" ng-click="sendFiendRequest(friends)" style="padding: 1px 1px;background-color:#3B5998;"><b>Add Friend</b></button>
                   </div>
                 </li>
               </ul>

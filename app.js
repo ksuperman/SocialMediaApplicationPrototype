@@ -64,6 +64,7 @@ app.post('/loadPendingFriendList',friend.loadPendingFriendList);
 app.post('/acceptFriendRequest',friend.acceptFriendRequest);
 app.post('/rejectFriendRequest',friend.rejectFriendRequest);
 app.post('/sendFiendRequest',friend.sendFiendRequest);
+app.post('/unFriendUserRequest',friend.unFriendUserRequest);
 app.post('/uploadProfilePic',user.uploadProfilePic);
 app.post('/loadAllGroups',groups.loadAllGroups);
 app.post('/loadMyGroups',groups.loadMyGroups);

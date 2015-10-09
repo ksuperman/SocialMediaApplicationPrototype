@@ -274,6 +274,17 @@ module.exports = {
 				accountoperation.userUnverified(res,"Invalid Session!! Please Login to continue.",{},req)
 			}
 			break;
+			
+		case "unFriendUserRequest" :
+			if(req.session.username != null && req.session.username != ""){
+				var sql_query = "DELETE FROM FRIENDS_LIST WHERE USER1 = " + req.body.ROW_ID + " AND USER2 = " + req.session.ROW_ID + " AND ACCEPTED = 'Y';";
+				sql_query += "DELETE FROM FRIENDS_LIST WHERE USER2 = " + req.body.ROW_ID + " AND USER1 = " + req.session.ROW_ID + " AND ACCEPTED = 'Y';";
+				executeSelectQuery(sql_query,data,req,res,operation);
+			}else{
+				var accountoperation = require('./accountoperation');
+				accountoperation.userUnverified(res,"Invalid Session!! Please Login to continue.",{},req)
+			}
+			break;
 
 		default:
 			break;
@@ -445,7 +456,8 @@ function executeSelectQuery(sql_stmt,data,req,res,operation){
 															|| operation == "loadMyGroups"
 																||operation == "addUserToGroup"
 																	|| operation == "removeUserFromGroup"
-																		|| operation == "createGroup") {
+																		|| operation == "createGroup"
+																			|| operation == "unFriendUserRequest") {
 							res.status(200).send(results);
 						}
 						//if(operation ==  "acceptFriendRequest"){}
@@ -477,7 +489,8 @@ function executeSelectQuery(sql_stmt,data,req,res,operation){
 															|| operation == "loadMyGroups"
 																||operation == "addUserToGroup"
 																	|| operation == "removeUserFromGroup"
-																		|| operation == "createGroup") {
+																		|| operation == "createGroup"
+																			|| operation == "unFriendUserRequest") {
 							res.status(403).send(error);
 						}
 					}

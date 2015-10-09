@@ -72,3 +72,14 @@ exports.acceptFriendRequest = function(req,res){
 		accountoperation.acceptFriendRequest(user,res,req);
 	}
 };
+
+exports.unFriendUserRequest = function(req,res){
+	var accountoperation = require('./accountoperation');
+	if(req.session.username == null || req.session.username == "" ){
+		accountoperation.userUnverified(res,"User Session is Invalid!! Please login to continue",{},req);
+		//res.send("Error no Session Assoicated With Request");
+	}else{
+		var user = req.body;
+		accountoperation.unFriendUserRequest(user,res,req);
+	}
+};

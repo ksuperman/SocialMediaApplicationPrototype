@@ -123,6 +123,10 @@ module.exports = {
 		createGroup : function(user,res,req){
 			var DBConnection = require('./DBConnection');
 			DBConnection.handleDBRequest("createGroup",user,res,req);
+		},
+		unFriendUserRequest : function(user,res,req){
+			var DBConnection = require('./DBConnection');
+			DBConnection.handleDBRequest("unFriendUserRequest",user,res,req);
 		}
 };
 
