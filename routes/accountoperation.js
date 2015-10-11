@@ -24,19 +24,21 @@ module.exports = {
 				
 			}
 			var DBConnection = require('./DBConnection');
-			console.log("Verify User");
+			console.log("Verify User in Account Operation\n ");
 			DBConnection.handleDBRequest("verifyUser",user,res,req);
 		},
 		userVerified : function(user,res,req){
 			userLogin(res,user,req);
 		},
 		userUnverified : function(res,error,user,req){
-			user.errorInloginForm = true;
-			user.errorMessage = error;
+			if(error != null && error != ""){
+				user.errorInloginForm = true;
+				user.errorMessage = error;	
+			}
 			res.render('index', { user: JSON.stringify({}),login:JSON.stringify(user)});
 		},
 		homeRedirection : function(user,res,req){
-			console.log(user);
+			console.log("Finally Responsed " + JSON.stringify(user));
 			res.render('home', { user: JSON.stringify(user)});	
 		},
 		getNewsFeeds : function(user,res,req){
@@ -140,8 +142,8 @@ function userLogin(res,data,req){
 		req.session.lastname = data.lastname;
 		req.session.ROW_ID = data.ROW_ID;
 		console.log("Session set" + req.session.username + "," + req.session.ROW_ID + "," + req.session.firstname);
-	}
-	console.log("Exisiting Session " + req.session.username + "," + req.session.ROW_ID + "," + req.session.firstname);
+	}else
+		console.log("Exisiting Session " + req.session.username + "," + req.session.ROW_ID + "," + req.session.firstname);
 	res.redirect("/home");
 	//res.render('home', { user: JSON.stringify(data)});	
 };

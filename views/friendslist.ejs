@@ -40,10 +40,10 @@
                      </div>
                   </li>
                   <li class="active">
-                     <form class="navbar-form navbar-right" role="search" name="logoutForm"
-                        ng-submit="logoutUesr()" action="/logout" method="post" novalidate="">
-                        <button type="submit" ng-disabled="logoutForm.$invalid" class="btn btn-primary">Logout</button>
-                     </form>
+              <form class="navbar-form navbar-right" role="search" name="logoutForm"
+              ng-submit="logoutUesr()" action="/logout" method="post" novalidate="">
+               <button type="button" class="btn btn-primary" ng-click="logout()">Logout</button>
+              </form>
                   </li>
                </ul>
                <p class="navbar-text navbar-right" id="ProfileDisplayLink">
@@ -59,13 +59,13 @@
          </div>
       </div>
       <div class="container">
-         <div class="row">
+         <div class="row" style="padding:0px 0px;margin: 0px 0px;">
             <div class="col-md-12 text-center">
-               <div class="section">
-                  <div class="container">
-                     <div class="row">
-                        <div class="col-md-12">
-                           <div class="section">
+               <div class="section" style="padding:0px 0px;margin: 0px 0px;">
+                  <div class="container" style="padding:0px 0px;margin: 0px 0px;">
+                     <div class="row" style="padding:0px 0px;margin: 0px 0px;">
+                        <div class="col-md-12" style="padding:0px 0px;margin: 0px 0px;>
+                           <div class="section" style="padding:0px 0px;margin: 0px 0px;>
                               <div class="container">
                                  <div class="row">
                                     <div class="col-md-12">
@@ -127,7 +127,7 @@
             </div>
          </div>
       </div>
-      <div class="section">
+      <div class="section" >
          <div class="container">
             <div class="row">
                <div class="col-md-6 text-left">
@@ -166,7 +166,7 @@
                   <h4 class="text-left">Search<input type="text" ng-model="tempfriends.FIRST_NAME"><img style="min-height:30px;height:30px;" alt="" src="/images/Search-icon.png"></h4>
                   <div class="row" ng-repeat="friends in friendslist | filter : tempfriends" ng-show="!friendslist.error">
                      <div class="col-md-2" style="padding: 0px 0px;">
-                        <a class="pull-left" ng-click="sendFiendRequest(friends)"><img class="img-rounded img-responsive" ng-src="{{friends.IMAGE_URL}}"></a>
+                        <a class="pull-left" ng-click="sendFiendRequest(friends)"><img style="min-height:70px;height:70px;" class="img-rounded img-responsive" ng-src="{{friends.IMAGE_URL}}"></a>
                      </div>
                      <div class="col-md-10">
                         <h3 class="text-left">{{friends.FIRST_NAME}} {{friends.LAST_NAME}}</h3>

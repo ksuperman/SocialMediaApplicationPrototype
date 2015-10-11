@@ -1,5 +1,5 @@
 var SocialMediaPrototypeHome = angular.module('SocialMediaPrototypeHome', []);
-SocialMediaPrototypeHome.controller('homePageController', function($scope,$http) {
+SocialMediaPrototypeHome.controller('homePageController', function($scope,$http,$window) {
 	 $scope.user = {};
 	// $scope.user.IMAGE_URL = "https://lh3.googleusercontent.com/-uoFDBGmaJME/AAAAAAAAAAI/AAAAAAAAAAA/QcZsAAou26Q/photo.jpg";
 	 $scope.newsfeeds = {};
@@ -138,4 +138,21 @@ SocialMediaPrototypeHome.controller('homePageController', function($scope,$http)
 					console.log(" my GROUPS list JSON : " + JSON.stringify($scope.allgroups));	
 			});
 	};
+	
+	$scope.logout = function(){
+		$http({
+			  method: 'POST',
+			  url: '/logout',
+			  headers: {
+				   'Content-Type': 'application/json'
+			  }
+				}).then(function successCallback(response) {
+					$scope.user = {};
+					$window.location.assign("/");
+					$window.location.reload(true);
+				}, function errorCallback(response) {
+					alert("There was an Error trying to logout your Session !!!");
+			});
+	};
+	
 });

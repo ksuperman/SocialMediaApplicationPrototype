@@ -1,5 +1,5 @@
 var SocialMediaPrototypeFriendList = angular.module('SocialMediaPrototypeFriendList', []);
-SocialMediaPrototypeFriendList.controller('friendListController', function($scope,$http) {
+SocialMediaPrototypeFriendList.controller('friendListController', function($scope,$http,$window) {
 	$scope.user = {};
 	$scope.myfriendslist = {};
 	$scope.friendslist = {};
@@ -151,6 +151,22 @@ SocialMediaPrototypeFriendList.controller('friendListController', function($scop
 					$scope.Pendingfriendslist.error = true;
 					console.log("Error In Friends request" + JSON.stringify(response));	
 					console.log("Friends list JSON : " + JSON.stringify($scope.Pendingfriendslist));	
+			});
+	};
+	
+	$scope.logout = function(){
+		$http({
+			  method: 'POST',
+			  url: '/logout',
+			  headers: {
+				   'Content-Type': 'application/json'
+			  }
+				}).then(function successCallback(response) {
+					$scope.user = {};
+					$window.location.assign("/home");
+					$window.location.reload(true);
+				}, function errorCallback(response) {
+					alert("There was an Error trying to logout your Session !!!");
 			});
 	};
 	

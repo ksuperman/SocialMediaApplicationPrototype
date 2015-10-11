@@ -5,14 +5,15 @@ socialMediaApp.controller('loginController', function($scope) {
 	$scope.LoginUser = function(){
 		if($scope.loginForm.$valid){
 			$scope.user.errorInloginForm = false;
-			alert("Loggin in Please wait !!")
+			//alert("Loggin in Please wait !!")
 		}
 	};
 });
 
-socialMediaApp.controller('signUpController', function($scope){
+socialMediaApp.controller('signUpController', function($scope,$http){
 		$scope.user = {};
 		//$scope.user.IMAGE_URL="/images/profile-photo_default.jpg";
+
 		$scope.submitSignUpForm = function($event){
 		try {
 			$scope.user.IMAGE_URL="/images/profile-photo_default.jpg";
@@ -25,28 +26,28 @@ socialMediaApp.controller('signUpController', function($scope){
 			console.log($scope.user.dateofbirth);
 			console.log($scope.user.currentDate);
 			console.log($scope.user.gender);
-			if ($scope.user.emailM !== $scope.user.emailR) {
-				$scope.user.errorMessage = "The emails entered dosnt Match!!";
-				$scope.user.errorInForm = true;
-				throw e;
-			} else {
-				$scope.user.errorMessage = "";
-				$scope.user.errorInForm = false;
-			}
+			
 			var currentDate = new Date();
 			var pastLimitDate = new Date("1900-01-01");
 			var dob = new Date($scope.user.dateofbirth);
+			
 			console.log("gettime : " + dob.getTime() > currentDate.getTime());
-			if (dob.getTime() > currentDate.getTime()) {
+			
+			if ($scope.user.emailM !== $scope.user.emailR || $scope.user.emailR !== $scope.user.emailM) {
+				$scope.user.errorMessage = "The emails entered dosnt Match!!";
+				$scope.user.errorInForm = true;
+				console.log("Email Error");
+				//throw e;
+			} else if (dob.getTime() > currentDate.getTime()) {
 				$scope.user.errorMessage = "Sorry People born in the Future Cannot Create Account in the Present ;)";
 				$scope.user.errorInForm = true;
 				$scope.signUpForm.$valid = false;
-				throw e;
+				//throw e;
 			}else if(dob.getTime() < pastLimitDate.getTime()){
 				$scope.user.errorMessage = "Are you seriously more than 100 years old!!!";
 				$scope.user.errorInForm = true;
 				$scope.signUpForm.$valid = false;
-				throw e;
+				//throw e;
 			}else{
 				$scope.user.errorMessage = "";
 				$scope.user.errorInForm = false;
@@ -55,11 +56,8 @@ socialMediaApp.controller('signUpController', function($scope){
 			console.log("Request for New Account : " + JSON.stringify($scope.user));
 			if ($scope.signUpForm.$valid && !$scope.user.errorInForm) {
 				console.log(JSON.stringify($scope.user));
-				
-
-				//$event.target.submit();
-				/*	
-				$http({
+				$('#signUpForm').submit();
+				/*$http({
 				  method: 'POST',
 				  url: '/signup',
 				  headers: {
@@ -76,15 +74,16 @@ socialMediaApp.controller('signUpController', function($scope){
 							$scope.errorMessage = "Error creating your Account!! Please try Again..";
 						}
 						$scope.user.errorInForm = true;
-				});
-				 */
+				});*/
 			}
 		} catch (e) {
-			//alert(e);
+			alert(e);
 			//return false;	
 		}	
 	};
 });
+
+
 
 /*
 socialMediaApp.directive('watchChange', function() {

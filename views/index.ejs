@@ -1,121 +1,120 @@
-<html lang="en"><head>
-    <title>friend's circle</title>
-    <link rel="icon" href="/images/favicon.ico">
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-    <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.4/angular.js"></script>
-    <script type="text/javascript" src="/js/libJS.js"></script>
-    <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="/stylesheets/style.css" rel="stylesheet" type="text/css">
-    <link href="http://pingendo.github.io/pingendo-bootstrap/themes/default/bootstrap.css" rel="stylesheet" type="text/css">
-  </head>
-		
-  <body ng-app="SocialMediaPrototype">
-    <div class="navbar navbar-fixed-top myBackground">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-ex-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand"><img height="30" width="150" alt="friend's circle" src="/images/Drawing.png"></a>
-        </div>
-        <div class="collapse navbar-collapse" id="navbar-ex-collapse" ng-controller="loginController">
-        <div class="alert alert-danger" ng-init="user = <%= login  %>" ng-show="user.errorInloginForm">
-	    	<strong>Error! {{user.errorMessage}}</strong>
-	    </div>
-    <!-- =================================================================== -->
-    <!--  ================Login======FORM================================== -->
-    <!-- =================================================================== -->
-          <form class="navbar-form navbar-right" role="search" name="loginForm" ng-submit="LoginUser()" action="/login" method="post" novalidate>
-            <div class="form-group">
-              <input type="text" class="form-control" name="username" id="user.username" ng-model="user.username" placeholder="Email" required>
+<html lang="en">
+   <head>
+      <title>friend's circle</title>
+      <link rel="icon" href="/images/favicon.ico">
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+      <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+      <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.4/angular.js"></script>
+      <script type="text/javascript" src="/js/libJS.js"></script>
+      <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+      <link href="/stylesheets/style.css" rel="stylesheet" type="text/css">
+      <link href="http://pingendo.github.io/pingendo-bootstrap/themes/default/bootstrap.css" rel="stylesheet" type="text/css">
+   </head>
+   <body ng-app="SocialMediaPrototype">
+      <div class="navbar navbar-fixed-top myBackground">
+         <div class="container">
+            <div class="navbar-header">
+               <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-ex-collapse">
+               <span class="sr-only">Toggle navigation</span>
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+               </button>
+               <a class="navbar-brand"><img height="30" width="150" alt="friend's circle" src="/images/Drawing.png"></a>
             </div>
-            <div class="form-group">
-              <input type="password" class="form-control" name="password" id="user.password" ng-model="user.password" placeholder="Password" required>
-            </div>
-            <button type="submit" ng-disabled="signUpForm.$invalid" class="btn btn-default">Sign In</button>
-          </form>
-        </div>
-      </div>
-    </div>
-    <div class="section">
-      <div class="container">
-        <div class="row"></div>
-      </div>
-    </div>
-    <div class="section">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-8">
-            <img src="/images/friendsbackground.jpg"
-            class="img-responsive">
-          </div>
-    <!-- =================================================================== -->
-    <!--  ===============Sign=Up======FORM================================== -->
-    <!-- =================================================================== -->
-          <div class="col-md-4" ng-controller="signUpController" ng-init="user = <%= user %>">
-            <h1>Sign up Today!!</h1>
-            <form role="form" name="signUpForm" ng-submit="submitSignUpForm($event)" action="/signup" method="post" novalidate>
-              <div class="row nopadding" >
-                <div class="col-md-6 nopadding">
-                  <div class="form-group has-feedback">
-                    <input class="form-control input-lg" id="user.firstname" name="firstname" placeholder="First Name"
-                    type="text" ng-model="user.firstname" tooltip="Enter your first name!" tooltip-placement="top" tooltip-trigger="mouseenter" tooltip-enable="!user.firstname" required>
-                    <p ng-show="signUpForm.firstname.$invalid && !signUpForm.firstname.$pristine" class="help-block">First Name is required.</p>
+            <div class="collapse navbar-collapse" id="navbar-ex-collapse" ng-controller="loginController">
+               <!-- =================================================================== -->
+               <!--  ================Login======FORM================================== -->
+               <!-- =================================================================== -->
+               <form class="navbar-form navbar-right" role="search" name="loginForm" ng-submit="LoginUser()" action="/login" method="post" novalidate>
+                  <div class="form-group">
+                     <input type="email" class="form-control" name="username" id="user.username" ng-model="user.username" placeholder="Email" required>
                   </div>
-                </div>
-                <div class="col-md-6 nopadding">
-                  <div class="form-group has-feedback">
-                    <input class="form-control input-lg" id="user.lastname" name="lastname" placeholder="Last Name"
-                    type="text" ng-model="user.lastName" required>
-                    <p ng-show="signUpForm.lastname.$invalid && !signUpForm.lastname.$pristine" class="help-block">Last Name is required.</p>
+                  <div class="form-group">
+                     <input type="password" class="form-control" name="password" id="user.password" ng-model="user.password" placeholder="Password" required>
                   </div>
-                </div>
-              </div>
-              <div class="form-group has-feedback">
-                <input class="form-control input-lg" id="user.emailM" name="emailM" placeholder="Email Address"
-                type="email" ng-model="user.emailM" required>
-                <p ng-show="signUpForm.emailM.$invalid && !signUpForm.emailM.$pristine" class="help-block">Enter a valid email.</p>
-              </div>
-              <div class="form-group">
-                <input class="form-control input-lg" id="user.emailR" name="emailR" placeholder="Re-enter email Address"
-                type="email" ng-model="user.emailR" required>
-                 <p ng-show="signUpForm.emailR.$invalid && !signUpForm.emailR.$pristine" class="help-block">Enter a valid email.</p>
-              </div>
-              <div class="form-group">
-                <input class="form-control input-lg" id="user.password" name="password" placeholder="New Password"
-                type="password" ng-model="user.password" ng-minlength="3" ng-maxlength="16" required>
-                 <p ng-show="signUpForm.password.$error.minlength" class="help-block">Password is too short.</p>
-            	 <p ng-show="signUpForm.password.$error.maxlength" class="help-block">Password is too long.</p>
-              </div>
-            <div class="form-group">
-             <label for="usr">Birthday</label>
-              <input class="form-control input-lg"  type="date" class="form-control" name="dateofbirth" ng-model="user.dateofbirth" required>
-              <p ng-show="signUpForm.dateofbirth.$invalid && user.dateofbirth > user.currentDate" class="help-block">Please Enter your Date of Birth.</p>
+                  <button type="submit" ng-disabled="loginForm.$invalid" class="btn btn-default">Sign In</button>
+                  <div class="alert alert-danger" ng-init="user = <%= login  %>" ng-show="user.errorInloginForm">
+                     <strong>Error! {{user.errorMessage}}</strong>
+                  </div>
+               </form>
             </div>
-               <div class="form-group">
-                <div class="radio">
-                  <label class="radio-inline"> 
-                    <input type="radio" name="gender" id="genderM" value="male" checked="true" ng-model="user.gender">Male</label>
-                  <label class="radio-inline">
-                    <input type="radio" name="gender" id="genderF" value="female" checked="" ng-model="user.gender">Female</label>
-                </div>
-              </div>
-              <button type="submit" ng-disabled="signUpForm.$invalid" class="btn btn-default btn-lg" >Sign Up</button>
-              <br>
-                <div class="alert alert-danger" ng-show="user.errorInForm">
-			    	<strong>Error!{{user.errorMessage}}</strong>
-			    </div>
-            </form>
-          </div>
-        </div>
+         </div>
       </div>
-    </div>
-  </body>
-
+      <div class="section">
+         <div class="container">
+            <div class="row"></div>
+         </div>
+      </div>
+      <div class="section">
+         <div class="container">
+            <div class="row">
+               <div class="col-md-8">
+                  <img src="/images/friendsbackground.jpg"
+                     class="img-responsive">
+               </div>
+               <!-- =================================================================== -->
+               <!--  ===============Sign=Up======FORM================================== -->
+               <!-- =================================================================== -->
+               <div class="col-md-4" ng-controller="signUpController" ng-init="user = <%= user %>">
+                  <h1>Sign up Today!!</h1>
+                  <form role="form" name="signUpForm" id="signUpForm"  action="/signup" method="post" novalidate>
+                     <div class="row nopadding" >
+                        <div class="col-md-6 nopadding">
+                           <div class="form-group has-feedback">
+                              <input class="form-control input-lg" id="user.firstname" name="firstname" placeholder="First Name"
+                                 type="text" ng-model="user.firstname" style="padding: 0px 5px" required>
+                              <p ng-show="signUpForm.firstname.$invalid && !signUpForm.firstname.$pristine" class="help-block">First Name is required.</p>
+                           </div>
+                        </div>
+                        <div class="col-md-6 nopadding">
+                           <div class="form-group has-feedback">
+                              <input class="form-control input-lg" id="user.lastname" name="lastname" placeholder="Last Name"
+                                 type="text" ng-model="user.lastName" style="padding: 0px 5px" required>
+                              <p ng-show="signUpForm.lastname.$invalid && !signUpForm.lastname.$pristine" class="help-block">Last Name is required.</p>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="form-group has-feedback">
+                        <input class="form-control input-lg" id="user.emailM" name="emailM" placeholder="Email Address"
+                           type="email" ng-model="user.emailM" style="padding: 0px 5px" required>
+                        <p ng-show="signUpForm.emailM.$invalid && !signUpForm.emailM.$pristine" class="help-block">Enter a valid email.</p>
+                     </div>
+                     <div class="form-group">
+                        <input class="form-control input-lg" id="user.emailR" name="emailR" placeholder="Re-enter email Address"
+                           type="email" ng-model="user.emailR" style="padding: 0px 5px" required>
+                        <p ng-show="signUpForm.emailR.$invalid && !signUpForm.emailR.$pristine" class="help-block">Enter a valid email.</p>
+                     </div>
+                     <div class="form-group">
+                        <input class="form-control input-lg" id="user.password" name="password" placeholder="New Password"
+                           type="password" ng-model="user.password" ng-minlength="3" ng-maxlength="20" style="padding: 0px 5px" required>
+                        <p ng-show="signUpForm.password.$error.minlength" class="help-block">Password is too short.</p>
+                        <p ng-show="signUpForm.password.$error.maxlength" class="help-block">Password is too long.</p>
+                     </div>
+                     <div class="form-group">
+                        <label for="usr">Birthday</label>
+                        <input class="form-control input-lg"  type="date" class="form-control" name="dateofbirth" ng-model="user.dateofbirth" required>
+                        <p ng-show="signUpForm.dateofbirth.$invalid && user.dateofbirth.getTime() > user.currentDate.getTime()" class="help-block" style="padding: 0px 0px">Please Enter your Date of Birth.</p>
+                     </div>
+                     <div class="form-group">
+                        <div class="radio">
+                           <label class="radio-inline"> 
+                           <input type="radio" name="gender" id="genderM" value="male" checked="true" ng-model="user.gender" required>Male</label>
+                           <label class="radio-inline">
+                           <input type="radio" name="gender" id="genderF" value="female" checked="" ng-model="user.gender" required>Female</label>
+                        </div>
+                     </div>
+                     <!--  <button type="submit" ng-disabled="signUpForm.$invalid" class="btn btn-default btn-lg" >Sign Up</button> -->
+                     <div class="alert alert-danger" ng-show="user.errorInForm">
+                        <strong>Error!{{user.errorMessage}}</strong>
+                     </div>
+                  </form>
+                  <button type="button" ng-disabled="signUpForm.$invalid" ng-click="submitSignUpForm($event)" class="btn btn-success btn-lg" >Sign Up</button>
+               </div>
+            </div>
+         </div>
+      </div>
+   </body>
 </html>

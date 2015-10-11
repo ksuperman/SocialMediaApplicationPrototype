@@ -88,12 +88,12 @@ body {
   #myfriendlistFrndpage{
   	overflow-x:hidden;
     overflow-y: auto;
-    height:20%;
+    height:40%;
   }
   
   #friendlistFrndpage{
     overflow-y: auto;
-    height:40%;
+    height:35%;
   }
   
   .images{

@@ -35,11 +35,6 @@ app.use(express.methodOverride());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/public', express.static(__dirname + "/public"));
-/*app.use(session({
-	  secret: '0GBlJZ9EKBt2Zbi2flRPvztczCewBxXK' // set this to a long random string!
-	}));*/
-
-
 
 // development only
 if ('development' == app.get('env')) {
@@ -51,6 +46,16 @@ app.get('/home', login.home);
 app.get('/groups', groups.groups);
 app.get('/friendslist', friend.friendslist);
 app.get('/userdetails', user.userdetails);
+app.get('/login', login.login);
+
+app.post('/loginREST',login.loginREST);
+/*app.post('/loginREST', function(req,res){
+	var user = req.body;
+	console.log("loginREST ---> " + JSON.stringify(user));
+	var DBConnections = require('./routes/DBConnectionPool');
+	setTimeout(function() {DBConnections.handleDBRequest("loginUser",user,res,req);}, 1);
+	
+});*/
 
 app.post('/signup', signup.signup);
 app.post('/getLifeEvents',user.getLifeEvents);

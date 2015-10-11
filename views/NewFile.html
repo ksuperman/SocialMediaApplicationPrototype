@@ -42,10 +42,11 @@
               </div>
             </li>
             <li class="active">
-              <form class="navbar-form navbar-right" role="search" name="logoutForm"
+<!--               <form class="navbar-form navbar-right" role="search" name="logoutForm"
               ng-submit="logoutUesr()" action="/logout" method="post" novalidate="">
                 <button type="submit" ng-disabled="logoutForm.$invalid" class="btn btn-primary">Logout</button>
-              </form>
+              </form> -->
+              <button type="button" class="btn btn-primary" ng-click="logout();">Logout</button>
             </li>
           </ul>
           <p class="navbar-text navbar-right" id="ProfileDisplayLink">
@@ -106,10 +107,10 @@
                   <strong>Error! {{statusupdate.errorMessage}}</strong>
                 </div>
                 <div class="row">
-                  <div class="col-xs-3 text-center" >
+                  <div class="col-md-3 text-center" >
                       <img ng-src="{{user.IMAGE_URL}}" class="img-responsive">
                   </div>
-                  <div class="col-xs-10 text-left">
+                  <div class="col-md-9 text-left">
                     <blockquote>
                       <p>{{statusupdate.POST_MESSAGE}}</p>
                       <footer>{{user.firstname}}</footer>

@@ -37,10 +37,10 @@
                      </div>
                   </li>
                   <li class="active">
-                     <form class="navbar-form navbar-right" role="search" name="logoutForm"
-                        ng-submit="logoutUesr()" action="/logout" method="post" novalidate="">
-                        <button type="submit" ng-disabled="logoutForm.$invalid" class="btn btn-primary">Logout</button>
-                     </form>
+              <form class="navbar-form navbar-right" role="search" name="logoutForm"
+              ng-submit="logoutUesr()" action="/logout" method="post" novalidate="">
+               <button type="button" class="btn btn-primary" ng-click="logout()">Logout</button>
+              </form>
                   </li>
                </ul>
                <p class="navbar-text navbar-right" id="ProfileDisplayLink">
@@ -61,8 +61,8 @@
                <div class="col-md-3">
                   <img class="img-responsive" ng-src="{{user.IMAGE_URL}}">
                   <form action="/uploadProfilePic" method="post", enctype="multipart/form-data" role="search" name="ProfileImageForm"
-                        ng-submit="uploadProfilePic()" novalidate="">
-                        <input type="file" multiple accept='image/*' ng-model="pofilepic" name="pofilepic" style="padding: 1px 1px;background-color:#3B5998;">
+                        ng-submit="uploadProfilePic()" novalidate>
+                        <input type="file" multiple accept='image/*' ng-model="pofilepic" id="pofilepic" name="pofilepic" style="padding: 1px 1px;"  onchange="checkFileType()">
                         <button type="submit" ng-disabled="ProfileImageForm.$invalid" class="btn btn-primary" name="submit" style="padding: 1px 1px;background-color:#3B5998;">Upload Picture</button>
                   </form>
                </div>

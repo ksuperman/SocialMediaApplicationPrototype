@@ -3,7 +3,25 @@ SocialMediaPrototypeUserDetails.controller('userDetailsController', function($sc
 	$scope.user = {};
 });
 
-SocialMediaPrototypeUserDetails.controller('AboutUserController', ['$scope','$http', function ($scope , $http) {
+SocialMediaPrototypeUserDetails.controller('userDetailsController', function($scope , $http ,$window) {
+	    $scope.logout = function(){
+		$http({
+			  method: 'POST',
+			  url: '/logout',
+			  headers: {
+				   'Content-Type': 'application/json'
+			  }
+				}).then(function successCallback(response) {
+					$scope.user = {};
+					$window.location.assign("/");
+					$window.location.reload(true);
+				}, function errorCallback(response) {
+					alert("There was an Error trying to logout your Session !!!");
+			});
+	};
+});
+
+SocialMediaPrototypeUserDetails.controller('AboutUserController', ['$scope','$http', function ($scope , $http ,$window) {
 	$scope.lifeevents = {};
     $scope.tabs = [{
             title: 'Overview',
@@ -46,4 +64,23 @@ SocialMediaPrototypeUserDetails.controller('AboutUserController', ['$scope','$ht
 					console.log(" my Friends list JSON : " + JSON.stringify($scope.lifeevents));	
 			});
     };
+    
+
 }]);
+
+function checkFileType(){
+	var file = document.getElementById('pofilepic');
+    var ext = file.value.match(/\.([^\.]+)$/)[1];
+    switch(ext)
+    {
+        case 'jpg':
+        case 'bmp':
+        case 'png':
+        case 'tif':
+            //alert('allowed');
+            break;
+        default:
+            alert('Profile Pictures should be images, Please check the Extension of the File.');
+        	file.value='';
+    }
+};

@@ -40,10 +40,10 @@
                      </div>
                   </li>
                   <li class="active">
-                     <form class="navbar-form navbar-right" role="search" name="logoutForm"
-                        ng-submit="logoutUesr()" action="/logout" method="post" novalidate="">
-                        <button type="submit" ng-disabled="logoutForm.$invalid" class="btn btn-primary">Logout</button>
-                     </form>
+              <form class="navbar-form navbar-right" role="search" name="logoutForm"
+              ng-submit="logoutUesr()" action="/logout" method="post" novalidate="">
+               <button type="button" class="btn btn-primary" ng-click="logout()">Logout</button>
+              </form>
                   </li>
                </ul>
                <p class="navbar-text navbar-right" id="ProfileDisplayLink">
@@ -105,12 +105,12 @@
                               <div class="col-md-11">
                                  <div class="form-group has-feedback">
                                     <div class="col-sm-10">
-                                       <input type="text" class="form-control" name="group.GROUP_NAME" id="group.GROUP_NAME" ng-model="group.GROUP_NAME" placeholder="Group Name" required>
+                                       <input type="text" class="form-control" name="group.GROUP_NAME" id="group.GROUP_NAME" ng-model="group.GROUP_NAME" placeholder="Group Name" style="padding: 0px 5px" required>
                                     </div>
                                  </div>
                                  <div class="form-group">
                                     <div class="col-sm-10">
-                                       <input type="text" class="form-control" name="group.GROUP_INFO" id="group.GROUP_INFO" ng-model="group.GROUP_INFO" placeholder="Group Information" required>
+                                       <input type="text" class="form-control" name="group.GROUP_INFO" id="group.GROUP_INFO" ng-model="group.GROUP_INFO" placeholder="Group Information" style="padding: 0px 5px" required>
                                     </div>
                                  </div>
                               </div>
