@@ -78,7 +78,6 @@ socialMediaApp.controller('signUpController', function($scope,$http){
 			}
 		} catch (e) {
 			alert(e);
-			//return false;	
 		}	
 	};
 });
