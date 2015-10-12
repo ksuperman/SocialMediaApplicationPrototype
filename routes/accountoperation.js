@@ -129,6 +129,56 @@ module.exports = {
 		unFriendUserRequest : function(user,res,req){
 			var DBConnection = require('./DBConnection');
 			DBConnection.handleDBRequest("unFriendUserRequest",user,res,req);
+		},
+		navToGroupDetailPage : function(user,res,req){
+			user.groupid = req.query.groupid;
+			var DBConnection = require('./DBConnection');
+			DBConnection.handleDBRequest("navToGroupDetailPage",user,res,req);
+		},
+		groupDetailsPageRedirect : function(data,res, req){
+			console.log(data);
+			res.render('groupdetails', { user: JSON.stringify(data), groupid : req.query.groupid });	
+		},
+		getGroupDetails : function(user,res,req){
+			user.groupid = req.session.groupid;
+			var DBConnection = require('./DBConnection');
+			DBConnection.handleDBRequest("getGroupDetails",user,res,req);
+		},
+		getGroupUserList : function(user,res,req){
+			user.groupid = req.session.groupid;
+			var DBConnection = require('./DBConnection');
+			DBConnection.handleDBRequest("getGroupUserList",user,res,req);
+		},
+		getGroupNonMembers : function(user,res,req){
+			user.groupid = req.session.groupid;
+			var DBConnection = require('./DBConnection');
+			DBConnection.handleDBRequest("getGroupNonMembers",user,res,req);
+		},
+		removeUserFromGroupAdmin : function(user,res,req){
+			var DBConnection = require('./DBConnection');
+			DBConnection.handleDBRequest("removeUserFromGroupAdmin",user,res,req);
+		},
+		addUserToGroupAdmin : function(user,res,req){
+			var DBConnection = require('./DBConnection');
+			DBConnection.handleDBRequest("addUserToGroupAdmin",user,res,req);
+		},
+		deleteGroup  : function(user,res,req){
+			var DBConnection = require('./DBConnection');
+			DBConnection.handleDBRequest("deleteGroup",user,res,req);
+		},
+		navToFriendDetailPage : function(user,res,req){
+			user.groupid = req.query.groupid;
+			var DBConnection = require('./DBConnection');
+			DBConnection.handleDBRequest("navToFriendDetailPage",user,res,req);
+		},
+		friendDetailsPageRedirect : function(data,res, req){
+			console.log(data);
+			res.render('frienddetails', { user: JSON.stringify(data), friendid : req.query.friendid });	
+		},
+		getFriendDetails : function(user,res,req){
+			user.groupid = req.session.groupid;
+			var DBConnection = require('./DBConnection');
+			DBConnection.handleDBRequest("getFriendDetails",user,res,req);
 		}
 };
 

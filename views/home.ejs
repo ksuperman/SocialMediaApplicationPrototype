@@ -98,7 +98,7 @@
               <div class="panel-body text-right">
                 <input type="textarea" style="width: 100%; border: 1px solid #333; padding: 5px 8px;padding-right: 10px;"
                 ng-model="statusupdate.POST_MESSAGE" name="POST_MESSAGE">
-                <button class="btn btn-primary" ng-click="postStatusUpdate()" style="padding: 1px 5px;background-color:#3B5998;"><b>Post</b></button>
+                <button class="btn btn-primary" ng-disabled="!statusupdate.POST_MESSAGE.length" ng-click="postStatusUpdate()" style="padding: 1px 5px;background-color:#3B5998;"><b>Post</b></button>
               </div>
             </div>
             <ul class="media-list text-left">

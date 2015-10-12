@@ -51,11 +51,11 @@ socialMediaApp.controller('signUpController', function($scope,$http){
 			}else{
 				$scope.user.errorMessage = "";
 				$scope.user.errorInForm = false;
+				$scope.signUpForm.$valid = true;
 			}
 			$scope.user.IMAGE_URL="/images/profile-photo_default.jpg";
-			console.log("Request for New Account : " + JSON.stringify($scope.user));
 			if ($scope.signUpForm.$valid && !$scope.user.errorInForm) {
-				console.log(JSON.stringify($scope.user));
+				console.log("Request for New Account : " + JSON.stringify($scope.user));
 				$('#signUpForm').submit();
 				/*$http({
 				  method: 'POST',

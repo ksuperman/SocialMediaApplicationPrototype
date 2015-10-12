@@ -64,6 +64,12 @@ body {
 }
 
 @media (min-width: 768px){
+	
+  #curUsers,#newUsers{
+    overflow-y: auto;
+    height:45%;
+  }
+  
   #newsfeed {
     overflow-y: auto; 
     height:90%;

@@ -163,13 +163,31 @@ SocialMediaPrototypeFriendList.controller('friendListController', function($scop
 			  }
 				}).then(function successCallback(response) {
 					$scope.user = {};
-					$window.location.assign("/home");
+					$window.location.assign("/");
 					$window.location.reload(true);
 				}, function errorCallback(response) {
 					alert("There was an Error trying to logout your Session !!!");
 			});
 	};
 	
+	$scope.navToFriendDetailPage = function(friend){
+		var friendform = "#navToFriendDetailPage"+friend.ROW_ID;
+		console.log("friendform : " + friendform);
+		$(friendform).submit();
+		/*$http({
+			  method: 'GET',
+			  url: '/navToGroupDetailPage?groupid='+group.ROW_ID//,
+			 // headers: {
+			//	   'Content-Type': 'application/json'
+			//  }//,
+			  //data: JSON.stringify($scope.group)
+				}).then(function errorCallback(response) {
+					$scope.group.errorMessage = "There was an error Navigating to Your Group!!"+ JSON.stringify(response);
+					$scope.group.error = true;
+					console.log("Error In My Friends request" + JSON.stringify(response));	
+					console.log(" your GROUPS list JSON : " + JSON.stringify($scope.group));	
+			});	*/
+	};
 	
 });
 

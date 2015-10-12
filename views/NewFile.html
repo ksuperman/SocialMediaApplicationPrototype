@@ -1,198 +1,120 @@
-<html>
-  
-  <head>
-    <title>friend's circle</title>
-    <link rel="icon" href="/images/favicon.ico">
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-    <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.4/angular.js"></script>
-<!--     <script src="https://code.angularjs.org/1.3.6/angular-messages.js"></script>
-    <script src="https://code.angularjs.org/1.3.6/angular-route.js"></script> -->
-    <script type="text/javascript" src="/js/libJS.js"></script>
-    <script type="text/javascript" src="/js/homeJS.js"></script>
-    <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css"
-    rel="stylesheet" type="text/css">
-    <link href="/stylesheets/style.css" rel="stylesheet" type="text/css">
-    <link href="http://pingendo.github.io/pingendo-bootstrap/themes/default/bootstrap.css"
-    rel="stylesheet" type="text/css">
-  </head>
-  
-  <body ng-app="SocialMediaPrototypeHome" ng-controller="homePageController" ng-init="user=<%= user %>; loadNewsFeeds(); loadFriendList(); loadAllGroups();">
-        <div class="navbar navbar-fixed-top myBackground">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-ex-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="/home"><img height="30" width="150" alt="friend's circle" ng-src="/images/Drawing.png"></a>
-        </div>
-        <div class="collapse navbar-collapse" id="navbar-ex-collapse">
-          <ul class="nav navbar-nav navbar-right">
-            <li class="active" id="homebutton">
-              <div class="row">
-                <form class="navbar-form navbar-right" role="search" name="homeForm" ng-submit="gotoHome()"
-                action="/home" method="get" novalidate="">
-                  <button type="submit" ng-disabled="homeForm.$invalid" class="btn btn-primary">Home</button>
-                </form>
-              </div>
-            </li>
-            <li class="active">
-<!--               <form class="navbar-form navbar-right" role="search" name="logoutForm"
-              ng-submit="logoutUesr()" action="/logout" method="post" novalidate="">
-                <button type="submit" ng-disabled="logoutForm.$invalid" class="btn btn-primary">Logout</button>
-              </form> -->
-              <button type="button" class="btn btn-primary" ng-click="logout();">Logout</button>
-            </li>
-          </ul>
-          <p class="navbar-text navbar-right" id="ProfileDisplayLink">
-            <img ng-src="{{user.IMAGE_URL}}" alt="profile" style="min-height:40px;height:40px;">
-            <a id="toolbarname" href="/userdetails" class="navbar-link">{{user.firstname}}</a>
-          </p>
-        </div>
-      </div>
-    </div>
-    <div class="section">
-      <div class="container">
-        <div class="row"></div>
-      </div>
-    </div>
-    <div class="section">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-3">
-            <ul class="media-list">
-              <li class="media">
-                <a class="pull-left" href="/userdetails"><img class="media-object" ng-src="{{user.IMAGE_URL}}" height="64" width="64"></a>
-                <div class="media-body">
-                  <h4 class="media-heading"><a href="/userdetails" style="color:black;">{{user.firstname}} {{user.lastname}}</a></h4>
-                  <p></p>
-                </div>
-              </li>
-            </ul>
-            <ul class="media-list">
-              <li class="media">
-                <a class="pull-left" href="/friendslist"><img class="media-object" src="/images/friend_list_icon.png" height="54" width="54"></a>
-                <div class="media-body">
-                  <h4 class="media-heading"><a href="/friendslist" style="color:black;">Friends</a></h4>
-
-                </div>
-              </li>
-              <li class="media">
-                <a class="pull-left" href="/groups"><img class="media-object" src="/images/Group_Icon.jpg" height="54" width="54"></a>
-                <div class="media-body">
-                  <h4 class="media-heading"><a href="/groups" style="color:black;">Groups</a></h4>
-                </div>
-              </li>
-            </ul>
-          </div>
-          <div class="col-md-7" id="newsfeed">
-            <div class="panel panel-primary">
-              <div class="panel-heading">
-                <h3 class="panel-title"><img style="min-height:23px;height:23px;" alt="" src="/images/status_update_icon.png">&nbsp;&nbsp;Update Status</h3>
-              </div>
-              <div class="panel-body text-right">
-                <input type="textarea" style="width: 100%; border: 1px solid #333; padding: 5px 8px;padding-right: 10px;"
-                ng-model="statusupdate.POST_MESSAGE" name="POST_MESSAGE">
-                <button class="btn btn-primary" ng-click="postStatusUpdate()" style="padding: 1px 5px;background-color:#3B5998;"><b>Post</b></button>
-              </div>
+<html lang="en">
+   <head>
+      <title>friend's circle</title>
+      <link rel="icon" href="/images/favicon.ico">
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+      <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+      <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.4/angular.js"></script>
+      <script type="text/javascript" src="/js/libJS.js"></script>
+      <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+      <link href="/stylesheets/style.css" rel="stylesheet" type="text/css">
+      <link href="http://pingendo.github.io/pingendo-bootstrap/themes/default/bootstrap.css" rel="stylesheet" type="text/css">
+   </head>
+   <body ng-app="SocialMediaPrototype">
+      <div class="navbar navbar-fixed-top myBackground">
+         <div class="container">
+            <div class="navbar-header">
+               <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-ex-collapse">
+               <span class="sr-only">Toggle navigation</span>
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+               </button>
+               <a class="navbar-brand"><img height="30" width="150" alt="friend's circle" src="/images/Drawing.png"></a>
             </div>
-            <ul class="media-list text-left">
-              <li class="media text-right" ng-show="statusupdate.POST_MESSAGE.length">
-                <div class="alert alert-danger" ng-show="statusupdate.error">
-                  <strong>Error! {{statusupdate.errorMessage}}</strong>
-                </div>
-                <div class="row">
-                  <div class="col-md-3 text-center" >
-                      <img ng-src="{{user.IMAGE_URL}}" class="img-responsive">
+            <div class="collapse navbar-collapse" id="navbar-ex-collapse" ng-controller="loginController">
+               <!-- =================================================================== -->
+               <!--  ================Login======FORM================================== -->
+               <!-- =================================================================== -->
+               <form class="navbar-form navbar-right" role="search" name="loginForm" ng-submit="LoginUser()" action="/login" method="post" novalidate>
+                  <div class="form-group">
+                     <input type="email" class="form-control" name="username" id="user.username" ng-model="user.username" placeholder="Email" required>
                   </div>
-                  <div class="col-md-9 text-left">
-                    <blockquote>
-                      <p>{{statusupdate.POST_MESSAGE}}</p>
-                      <footer>{{user.firstname}}</footer>
-                    </blockquote>
+                  <div class="form-group">
+                     <input type="password" class="form-control" name="password" id="user.password" ng-model="user.password" placeholder="Password" required>
                   </div>
-                </div>
-              </li>
-            </ul>
-            <ul class="list-group text-right">
-              <div class="alert alert-danger" ng-show="newsfeeds.error">
-                <strong>Error! {{newsfeeds.errorMessage}}</strong>
-              </div>
-              <li class="list-group-item" ng-repeat="feeds in newsfeeds" ng-show="!newsfeeds.error">
-                <div class="row">
-                  <div class="col-md-2">
-                    <div class="thumbnail">
-                      <img ng-src="{{feeds.IMAGE_URL}}" class="img-responsive">
-                    </div>
+                  <button type="submit" ng-disabled="loginForm.$invalid" class="btn btn-default">Sign In</button>
+                  <div class="alert alert-danger" ng-init="user = <%= login  %>" ng-show="user.errorInloginForm">
+                     <strong>Error! {{user.errorMessage}}</strong>
                   </div>
-                  <div class="col-md-10 text-justify">
-                    <blockquote>
-                      <p>{{feeds.POST_MESSAGE}}</p>
-                      <footer>{{feeds.FIRST_NAME}} {{feeds.LAST_NAME}}</footer>
-                    </blockquote>
-                  </div>
-                </div>
-              </li>
-            </ul>
-          </div>
-          <div class="col-md-2">
+               </form>
+            </div>
+         </div>
+      </div>
+      <div class="section">
+         <div class="container">
+            <div class="row"></div>
+         </div>
+      </div>
+      <div class="section">
+         <div class="container">
             <div class="row">
-              <div class="col-md-12">
-                <h3 class="text-center">Join Groups</h3>
-              </div>
+               <div class="col-md-8">
+                  <img src="/images/friendsbackground.jpg"
+                     class="img-responsive">
+               </div>
+               <!-- =================================================================== -->
+               <!--  ===============Sign=Up======FORM================================== -->
+               <!-- =================================================================== -->
+               <div class="col-md-4" ng-controller="signUpController" ng-init="user = <%= user %>">
+                  <h1>Sign up Today!!</h1>
+                  <form role="form" name="signUpForm" id="signUpForm"  action="/signup" method="post" novalidate>
+                     <div class="row nopadding" >
+                        <div class="col-md-6 nopadding">
+                           <div class="form-group has-feedback">
+                              <input class="form-control input-lg" id="user.firstname" name="firstname" placeholder="First Name"
+                                 type="text" ng-model="user.firstname" style="padding: 0px 5px" required>
+                              <p ng-show="signUpForm.firstname.$invalid && !signUpForm.firstname.$pristine" class="help-block">First Name is required.</p>
+                           </div>
+                        </div>
+                        <div class="col-md-6 nopadding">
+                           <div class="form-group has-feedback">
+                              <input class="form-control input-lg" id="user.lastname" name="lastname" placeholder="Last Name"
+                                 type="text" ng-model="user.lastName" style="padding: 0px 5px" required>
+                              <p ng-show="signUpForm.lastname.$invalid && !signUpForm.lastname.$pristine" class="help-block">Last Name is required.</p>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="form-group has-feedback">
+                        <input class="form-control input-lg" id="user.emailM" name="emailM" placeholder="Email Address"
+                           type="email" ng-model="user.emailM" style="padding: 0px 5px" required>
+                        <p ng-show="signUpForm.emailM.$invalid && !signUpForm.emailM.$pristine" class="help-block">Enter a valid email.</p>
+                     </div>
+                     <div class="form-group">
+                        <input class="form-control input-lg" id="user.emailR" name="emailR" placeholder="Re-enter email Address"
+                           type="email" ng-model="user.emailR" style="padding: 0px 5px" required>
+                        <p ng-show="signUpForm.emailR.$invalid && !signUpForm.emailR.$pristine" class="help-block">Enter a valid email.</p>
+                     </div>
+                     <div class="form-group">
+                        <input class="form-control input-lg" id="user.password" name="password" placeholder="New Password"
+                           type="password" ng-model="user.password" ng-minlength="3" ng-maxlength="20" style="padding: 0px 5px" required>
+                        <p ng-show="signUpForm.password.$error.minlength" class="help-block">Password is too short.</p>
+                        <p ng-show="signUpForm.password.$error.maxlength" class="help-block">Password is too long.</p>
+                     </div>
+                     <div class="form-group">
+                        <label for="usr">Birthday</label>
+                        <input class="form-control input-lg"  type="date" class="form-control" name="dateofbirth" ng-model="user.dateofbirth" required>
+                        <p ng-show="signUpForm.dateofbirth.$invalid && user.dateofbirth.getTime() > user.currentDate.getTime()" class="help-block" style="padding: 0px 0px">Please Enter your Date of Birth.</p>
+                     </div>
+                     <div class="form-group">
+                        <div class="radio">
+                           <label class="radio-inline"> 
+                           <input type="radio" name="gender" id="genderM" value="male" checked="true" ng-model="user.gender" required>Male</label>
+                           <label class="radio-inline">
+                           <input type="radio" name="gender" id="genderF" value="female" checked="" ng-model="user.gender" required>Female</label>
+                        </div>
+                     </div>
+                     <!--  <button type="submit" ng-disabled="signUpForm.$invalid" class="btn btn-default btn-lg" >Sign Up</button> -->
+                     <div class="alert alert-danger" ng-show="user.errorInForm">
+                        <strong>Error!{{user.errorMessage}}</strong>
+                     </div>
+                  </form>
+                  <button type="button" ng-disabled="signUpForm.$invalid" ng-click="submitSignUpForm($event)" class="btn btn-success btn-lg" >Sign Up</button>
+               </div>
             </div>
-            <div class="row" id="GroupsList">
-			<div class="col-md-12">
-               <div class="alert alert-danger" ng-show="allgroups.error">
-          			 <strong>Error! {{allgroups.errorMessage}}</strong>
-       			 </div>
-                 <ul class="media-list" id="allGroupsList">
-                    <li class="media" ng-repeat="group in allgroups">
-                       <a class="pull-left" href="" ng-click="addUserToGroup(group)" style="padding: 1px 1px;"><img class="media-object" ng-src={{group.IMAGE_URL}} height="54" width="54"></a>
-                       <div class="media-body">
-                          <h4 class="media-heading">&nbsp;&nbsp;{{group.GROUP_NAME}}</h4>
-                          &nbsp;&nbsp;&nbsp;<button class="btn btn-primary" ng-click="addUserToGroup(group)" style="padding: 1px 1px;background-color:#3B5998; color: #E8F3F0;"><b>Join Group</b></button>
-                          <!-- <p>{{group.GROUP_INFO}}</p> -->
-                       </div>
-                    </li>
-                 </ul>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-12">
-                <h3 class="text-center">Make Friends</h3>
-               <div class="alert alert-danger" ng-show="friendslist.error">
-                <strong>Error! {{friendslist.errorMessage}}</strong>
-              </div>
-              <div class="alert alert-danger" ng-show="friendrequest.error">
-                <strong>Error! {{friendrequest.errorMessage}}</strong>
-              </div>
-                <div class="alert alert-success" ng-show="friendrequest.sucess">
-                <strong>Success!</strong> Friends Request sent Successfully !!!
-              </div>
-              </div>
-            </div>
-            
-            <div class="row" id="FriendsList"  ng-show="!friendslist.error">
-              <ul class="media-list">
-                <li class="media" ng-repeat="friends in friendslist">
-                  <a class="pull-left" ng-click="sendFiendRequest(friends)"><img class="media-object"  ng-src="{{friends.IMAGE_URL}}" height="44" width="44"></a>
-                  <div class="media-body">
-                    <h4 class="media-heading">{{friends.FIRST_NAME}} {{friends.LAST_NAME}}</h4>
-                    <button class="btn btn-primary" ng-click="sendFiendRequest(friends)" style="padding: 1px 1px;background-color:#3B5998;"><b>Add Friend</b></button>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
+         </div>
       </div>
-    </div>
-  </body>
-
+   </body>
 </html>

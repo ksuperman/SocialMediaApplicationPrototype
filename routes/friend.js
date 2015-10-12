@@ -83,3 +83,26 @@ exports.unFriendUserRequest = function(req,res){
 		accountoperation.unFriendUserRequest(user,res,req);
 	}
 };
+
+exports.navToFriendDetailPage = function(req,res){
+	var accountoperation = require('./accountoperation');
+	if(req.session.username != null && req.session.username != ""){	
+		console.log("Friend ID Got in the Get Request : " + req.query.friendid);
+		req.session.friendid = req.query.friendid;
+		//res.redirect("/groupDetailPage");
+		accountoperation.navToFriendDetailPage({},res,req);
+	}
+	else
+		accountoperation.userUnverified(res, "Invalid Session Please Login to Continue!!", {}, req);
+};
+
+exports.getFriendDetails = function(req,res){
+	var accountoperation = require('./accountoperation');
+	if(req.session.username == null || req.session.username == "" ){
+		accountoperation.userUnverified(res,"User Session is Invalid!! Please login to continue",{},req);
+		//res.send("Error no Session Assoicated With Request");
+	}else{
+		var user = req.session.friendid;
+		accountoperation.getFriendDetails(user,res,req);
+	}
+};

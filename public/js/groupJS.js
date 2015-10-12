@@ -121,6 +121,25 @@ SocialMediaPrototypeGroup.controller('GroupPageController', function($scope,$htt
 			});	
 	};
 	
+	$scope.navToGroupDetailPage = function(group){
+		var groupform = "#navToGroupDetailPage"+group.ROW_ID;
+		console.log("groupform : " + groupform);
+		$(groupform).submit();
+		/*$http({
+			  method: 'GET',
+			  url: '/navToGroupDetailPage?groupid='+group.ROW_ID//,
+			 // headers: {
+			//	   'Content-Type': 'application/json'
+			//  }//,
+			  //data: JSON.stringify($scope.group)
+				}).then(function errorCallback(response) {
+					$scope.group.errorMessage = "There was an error Navigating to Your Group!!"+ JSON.stringify(response);
+					$scope.group.error = true;
+					console.log("Error In My Friends request" + JSON.stringify(response));	
+					console.log(" your GROUPS list JSON : " + JSON.stringify($scope.group));	
+			});	*/
+	};
+	
 	$scope.logout = function(){
 		$http({
 			  method: 'POST',

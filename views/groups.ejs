@@ -95,9 +95,9 @@
                         </div>
                      </div>
                   </div>
-                  <div class="row">
+                  <div class="row" style="padding-bottom: 15px;padding-left: 15px;">
                      <div class="col-md-12">
-                        <h3>Create your group</h3>
+                        <h3><b><img style="min-height:30px;height:30px;" alt="" src="/images/create-groups-icon.jpg">&nbsp;&nbsp;Create your group</b></h3>
                      </div>
                      <div class="col-md-12">
                         <div class="row">
@@ -116,7 +116,7 @@
                               </div>
                            </form>
                            <div>
-                                <button type="button" class="btn btn-lg btn-success" ng-click="createGroup()" style="padding: 1px 1px;">Create Group</button>
+                                <button type="button"  ng-disabled="createGroupForm.$invalid" class="btn btn-lg btn-success" ng-click="createGroup()" style="padding: 1px 15px;">Create Group</button>
                           </div>
                         </div>
                         <div class="row" ng-show="group.GROUP_NAME.length||group.error">
@@ -162,12 +162,15 @@
                       <div class="alert alert-danger" ng-show="allgroups.error">
                  			 <strong>Error! {{allgroups.errorMessage}}</strong>
               			 </div>
+              			 
                         <ul class="media-list" id="allGroupsList">
                            <li class="media" ng-repeat="group in allgroups">
+                           
                               <a class="pull-left" href="" ng-click="addUserToGroup(group)"><img class="media-object" ng-src={{group.IMAGE_URL}} height="54" width="54"></a>
                               <div class="media-body">
                                  <h4 class="media-heading"><b>{{group.GROUP_NAME}}</b>&nbsp;&nbsp;<button class="btn btn-primary" ng-click="addUserToGroup(group)" style="padding: 1px 1px;background-color:#3B5998; color: #E8F3F0;"><b>Join Group</b></button></h4>
                                  <p>{{group.GROUP_INFO}}</p>
+                                 
                               </div>
                            </li>
                         </ul>
@@ -178,9 +181,11 @@
               			 </div>
                         <ul class="media-list" id="mmyGroupsList">
                            <li class="media" ng-repeat="group in mygroups">
-                              <a class="pull-left" href="" ><img class="media-object" ng-src={{group.IMAGE_URL}} height="54" width="54"></a>
+                            <form name="navToGroupDetailPage{{group.ROW_ID}}" id="navToGroupDetailPage{{group.ROW_ID}}" action="/navToGroupDetailPage" method="get" novalidate="">
+                            <input type="hidden" name="groupid" id="groupid" ng-model="groupid"  value="{{group.ROW_ID}}"></form>
+                              <a class="pull-left" ng-click="navToGroupDetailPage(group)"><img class="media-object" ng-src={{group.IMAGE_URL}} height="54" width="54"></a>
                               <div class="media-body">
-                                 <h4 class="media-heading"><b>{{group.GROUP_NAME}}</b>&nbsp;&nbsp;<button class="btn btn-primary" ng-click="removeUserFromGroup(group)" style="padding: 1px 1px;background-color:#3B5998;"><b>Leave Group</b></button></h4>
+                                 <h4 class="media-heading"><b><a class="pull-left" ng-click="navToGroupDetailPage(group)" style="color: black;">{{group.GROUP_NAME}}</a></b>&nbsp;&nbsp;<button class="btn btn-primary" ng-click="removeUserFromGroup(group)" style="padding: 1px 1px;background-color:#3B5998;"><b>Leave Group</b></button></h4>
                                  <p>{{group.GROUP_INFO}}</p>
                               </div>
                            </li>

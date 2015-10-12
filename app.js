@@ -48,8 +48,23 @@ app.get('/friendslist', friend.friendslist);
 app.get('/userdetails', user.userdetails);
 app.get('/login', login.login);
 
-app.post('/loginREST',login.loginREST);
-/*app.post('/loginREST', function(req,res){
+//Group Details Pages
+app.get('/navToGroupDetailPage?:groupid', groups.navToGroupDetailPage);
+app.get('/groupDetailPage', groups.groupDetailPage);
+app.get('/getGroupDetails',groups.getGroupDetails);
+app.get('/getGroupUserList',groups.getGroupUserList);
+app.get('/getGroupNonMembers',groups.getGroupNonMembers);
+app.post('/removeUserFromGroupAdmin',groups.removeUserFromGroupAdmin);
+app.post('/addUserToGroupAdmin',groups.addUserToGroupAdmin);
+app.post('/deleteGroup',groups.deleteGroup);
+
+
+//Friend Details Pages
+app.get('/navToFriendDetailPage?:friendid', friend.navToFriendDetailPage);
+app.post('/getFriendDetails',friend.getFriendDetails);
+
+/*	app.post('/loginREST',login.loginREST);
+ 	app.post('/loginREST', function(req,res){
 	var user = req.body;
 	console.log("loginREST ---> " + JSON.stringify(user));
 	var DBConnections = require('./routes/DBConnectionPool');
@@ -76,8 +91,6 @@ app.post('/loadMyGroups',groups.loadMyGroups);
 app.post('/addUserToGroup',groups.addUserToGroup);
 app.post('/removeUserFromGroup',groups.removeUserFromGroup);
 app.post('/createGroup',groups.createGroup);
-
-
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Social Media Prototype server listening on port ' + app.get('port'));
