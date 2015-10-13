@@ -17,8 +17,8 @@
           <boolProp name="LoopController.continue_forever">false</boolProp>
           <stringProp name="LoopController.loops">1</stringProp>
         </elementProp>
-        <stringProp name="ThreadGroup.num_threads">100</stringProp>
-        <stringProp name="ThreadGroup.ramp_time">0</stringProp>
+        <stringProp name="ThreadGroup.num_threads">250</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">10</stringProp>
         <longProp name="ThreadGroup.start_time">1442958910000</longProp>
         <longProp name="ThreadGroup.end_time">1442958910000</longProp>
         <boolProp name="ThreadGroup.scheduler">false</boolProp>
@@ -192,7 +192,11 @@
               <stringProp name="filename"></stringProp>
               <stringProp name="RespTimeGraph.xaxistimeformat">mm:ss</stringProp>
               <boolProp name="RespTimeGraph.yaxisnumbergrouping">false</boolProp>
-              <stringProp name="RespTimeGraph.interval">100</stringProp>
+              <stringProp name="RespTimeGraph.interval">1000</stringProp>
+              <stringProp name="RespTimeGraph.graphtitle">Response Time Graph -  Without Connection Pool</stringProp>
+              <intProp name="RespTimeGraph.linestrockwidth">2</intProp>
+              <intProp name="RespTimeGraph.lineshapepoint">1</intProp>
+              <intProp name="RespTimeGraph.legendsize">1</intProp>
             </ResultCollector>
             <hashTree/>
             <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
@@ -261,7 +265,7 @@
               <stringProp name="filename"></stringProp>
             </ResultCollector>
             <hashTree/>
-            <ResultCollector guiclass="SplineVisualizer" testclass="ResultCollector" testname="Spline Visualizer" enabled="false">
+            <ResultCollector guiclass="SplineVisualizer" testclass="ResultCollector" testname="Spline Visualizer" enabled="true">
               <boolProp name="ResultCollector.error_logging">false</boolProp>
               <objProp>
                 <name>saveConfig</name>

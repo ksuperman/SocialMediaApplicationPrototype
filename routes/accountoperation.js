@@ -194,6 +194,8 @@ function userLogin(res,data,req){
 		console.log("Session set" + req.session.username + "," + req.session.ROW_ID + "," + req.session.firstname);
 	}else
 		console.log("Exisiting Session " + req.session.username + "," + req.session.ROW_ID + "," + req.session.firstname);
-	res.redirect("/home");
+	res.redirect("/home");//Default Action !!
+	//res.status(200).send("Sucessful Login");
+	
 	//res.render('home', { user: JSON.stringify(data)});	
 };

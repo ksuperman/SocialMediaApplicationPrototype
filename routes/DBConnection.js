@@ -4,7 +4,7 @@ var connectionPoolFlag = true;
 var poolcreated = false;
 var RequestQueue = {};
 var requestQueueScheduler = null;
-var poolSize = 100;
+var poolSize = 500;
 var requestId = 0;
 
 module.exports = {
@@ -506,11 +506,15 @@ function getNewConnectionFromDB(){
 			host : 'localhost',
 			user : 'root',
 			password : 'YyX26VXPxLHAGQK8',
-			database: 'SocialMediaPrototypeDB'
+			database: 'SocialMediaPrototypeDB',
+			connectTimeout: 6000,
+			waitForConnections: true,
+			pool: false,
 		});	
 		return dbconnection;
 	}
 }
+
 
 function getNewConnectionFromDBPool(sql_query,data,req,res,operation,callback,requestId){
 
@@ -614,6 +618,7 @@ function getNewConnectionFromDBPool(sql_query,data,req,res,operation,callback,re
 	}
 }
 
+
 function createConnectionPool(){
 	var mysql = require('mysql');
 	var dbconnections = [];
@@ -623,7 +628,11 @@ function createConnectionPool(){
 			host : 'localhost',
 			user : 'root',
 			password : 'YyX26VXPxLHAGQK8',
-			database: 'SocialMediaPrototypeDB'
+			database: 'SocialMediaPrototypeDB',
+			connectTimeout: 600000,
+			waitForConnections: false,
+			connectionLimit: 499,
+			pool: false,
 		});	
 		dbconnection.connect();
 		dbconnections[i] = dbconnection;
@@ -632,6 +641,7 @@ function createConnectionPool(){
 	}
 	return dbconnections;
 }
+
 
 function executeSelectQuery(sql_stmt,data,req,res,operation,requestId){
 	try {
