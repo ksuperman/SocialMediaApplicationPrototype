@@ -5,7 +5,6 @@ exports.userdetails = function(req,res){
 	}
 	else
 		accountoperation.userUnverified(res, "Invalid Session Please Login to Continue!!", {}, req);
-	//res.render('userdetails', { user: JSON.stringify({})});
 };
 
 exports.getLifeEvents = function(req,res){
@@ -28,8 +27,7 @@ exports.uploadProfilePic = function(req,res){
 			  console.log("File newPath " + "");
 			  fs.writeFile(newPath, data, function (err) {
 				  console.log("File Uploaded" + err);
-				  accountoperation.updateProfilePicture({newPath: "/public/uploads/"+req.files.pofilepic.name},res,req)
-				  //accountoperation.renderUserDetailsPage({},res,req);
+				  accountoperation.updateProfilePicture({newPath: "/public/uploads/"+req.files.pofilepic.name},res,req);
 		  });
 		});
 	}

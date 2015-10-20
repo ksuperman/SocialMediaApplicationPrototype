@@ -40,10 +40,10 @@
                      </div>
                   </li>
                   <li class="active">
-              <form class="navbar-form navbar-right" role="search" name="logoutForm"
-              ng-submit="logoutUesr()" action="/logout" method="post" novalidate="">
-               <button type="button" class="btn btn-primary" ng-click="logout()">Logout</button>
-              </form>
+                     <form class="navbar-form navbar-right" role="search" name="logoutForm"
+                        ng-submit="logoutUesr()" action="/logout" method="post" novalidate="">
+                        <button type="button" class="btn btn-primary" ng-click="logout()">Logout</button>
+                     </form>
                   </li>
                </ul>
                <p class="navbar-text navbar-right" id="ProfileDisplayLink">
@@ -116,37 +116,37 @@
                               </div>
                            </form>
                            <div>
-                                <button type="button"  ng-disabled="createGroupForm.$invalid" class="btn btn-lg btn-success" ng-click="createGroup()" style="padding: 1px 15px;">Create Group</button>
-                          </div>
+                              <button type="button"  ng-disabled="createGroupForm.$invalid" class="btn btn-lg btn-success" ng-click="createGroup()" style="padding: 1px 15px;">Create Group</button>
+                           </div>
                         </div>
                         <div class="row" ng-show="group.GROUP_NAME.length||group.error">
-                        <div class="row" ng-show="group.error">
-	                        <div class="alert alert-danger" ng-show="group.error">
-				               <strong>Error! {{group.errorMessage}}</strong>
-				            </div>
-			            </div>
-			             <div class="row"ng-show="group.GROUP_NAME.length">
-			             <div class="column-md-12">
-						      <ul class="list-group text-left">
-						         <li class="list-group-item text-right">
-						            <div class="row">
-						               <div class="col-md-2">
-						                  <div class="thumbnail">
-						                     <img ng-src="{{group.IMAGE_URL}}" class="img-responsive">
-						                  </div>
-						               </div>
-						               <div class="col-md-10 text-justify">
-						                  <blockquote>
-						                     <p><b>{{group.GROUP_NAME}}</b></p>
-						                     <footer>{{group.GROUP_INFO}}</footer>
-						                  </blockquote>
-						               </div>
-						            </div>
-						         </li>
-						      </ul>
-						   </div>
-			             </div>
-						</div>
+                           <div class="row" ng-show="group.error">
+                              <div class="alert alert-danger" ng-show="group.error">
+                                 <strong>Error! {{group.errorMessage}}</strong>
+                              </div>
+                           </div>
+                           <div class="row"ng-show="group.GROUP_NAME.length">
+                              <div class="column-md-12">
+                                 <ul class="list-group text-left">
+                                    <li class="list-group-item text-right">
+                                       <div class="row">
+                                          <div class="col-md-2">
+                                             <div class="thumbnail">
+                                                <img ng-src="{{group.IMAGE_URL}}" class="img-responsive">
+                                             </div>
+                                          </div>
+                                          <div class="col-md-10 text-justify">
+                                             <blockquote>
+                                                <p><b>{{group.GROUP_NAME}}</b></p>
+                                                <footer>{{group.GROUP_INFO}}</footer>
+                                             </blockquote>
+                                          </div>
+                                       </div>
+                                    </li>
+                                 </ul>
+                              </div>
+                           </div>
+                        </div>
                      </div>
                   </div>
                   <div class="row">
@@ -159,30 +159,28 @@
                   </div>
                   <div class="row">
                      <div class="col-md-6">
-                      <div class="alert alert-danger" ng-show="allgroups.error">
-                 			 <strong>Error! {{allgroups.errorMessage}}</strong>
-              			 </div>
-              			 
+                        <div class="alert alert-danger" ng-show="allgroups.error">
+                           <strong>Error! {{allgroups.errorMessage}}</strong>
+                        </div>
                         <ul class="media-list" id="allGroupsList">
                            <li class="media" ng-repeat="group in allgroups">
-                           
                               <a class="pull-left" href="" ng-click="addUserToGroup(group)"><img class="media-object" ng-src={{group.IMAGE_URL}} height="54" width="54"></a>
                               <div class="media-body">
                                  <h4 class="media-heading"><b>{{group.GROUP_NAME}}</b>&nbsp;&nbsp;<button class="btn btn-primary" ng-click="addUserToGroup(group)" style="padding: 1px 1px;background-color:#3B5998; color: #E8F3F0;"><b>Join Group</b></button></h4>
                                  <p>{{group.GROUP_INFO}}</p>
-                                 
                               </div>
                            </li>
                         </ul>
                      </div>
                      <div class="col-md-6">
-                     <div class="alert alert-danger" ng-show="mygroups.error">
-                 			 <strong>Error! {{mygroups.errorMessage}}</strong>
-              			 </div>
+                        <div class="alert alert-danger" ng-show="mygroups.error">
+                           <strong>Error! {{mygroups.errorMessage}}</strong>
+                        </div>
                         <ul class="media-list" id="mmyGroupsList">
                            <li class="media" ng-repeat="group in mygroups">
-                            <form name="navToGroupDetailPage{{group.ROW_ID}}" id="navToGroupDetailPage{{group.ROW_ID}}" action="/navToGroupDetailPage" method="get" novalidate="">
-                            <input type="hidden" name="groupid" id="groupid" ng-model="groupid"  value="{{group.ROW_ID}}"></form>
+                              <form name="navToGroupDetailPage{{group.ROW_ID}}" id="navToGroupDetailPage{{group.ROW_ID}}" action="/navToGroupDetailPage" method="get" novalidate="">
+                                 <input type="hidden" name="groupid" id="groupid" ng-model="groupid"  value="{{group.ROW_ID}}">
+                              </form>
                               <a class="pull-left" ng-click="navToGroupDetailPage(group)"><img class="media-object" ng-src={{group.IMAGE_URL}} height="54" width="54"></a>
                               <div class="media-body">
                                  <h4 class="media-heading"><b><a class="pull-left" ng-click="navToGroupDetailPage(group)" style="color: black;">{{group.GROUP_NAME}}</a></b>&nbsp;&nbsp;<button class="btn btn-primary" ng-click="removeUserFromGroup(group)" style="padding: 1px 1px;background-color:#3B5998;"><b>Leave Group</b></button></h4>

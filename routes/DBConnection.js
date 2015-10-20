@@ -4,12 +4,12 @@ var connectionPoolFlag = true;
 var poolcreated = false;
 var RequestQueue = {};
 var requestQueueScheduler = null;
-var poolSize = 500;
+var poolSize = 99;
 var requestId = 0;
 
 module.exports = {
 		handleDBRequest : function(operation,data,res,req){
-			console.log("handleDBRequest got the Requset to '" + operation +"' and handled with RequestId : " + requestId);
+			console.log("handleDBRequest got the Request to '" + operation +"' and its handled with RequestId : " + requestId);
 			deligateDBAccessRequest(operation,data,res,req,requestId);
 			requestId++;
 		}
@@ -515,10 +515,10 @@ function getNewConnectionFromDB(){
 	}
 }
 
-
 function getNewConnectionFromDBPool(sql_query,data,req,res,operation,callback,requestId){
 
 	if(connectionPoolFlag){
+		
 		//Create a connection Pool.
 		if(dbconnections.length <= 0 && !poolcreated){
 			dbconnections = createConnectionPool();
@@ -590,6 +590,8 @@ function getNewConnectionFromDBPool(sql_query,data,req,res,operation,callback,re
 						//If there are Any request to be queue into the queue.
 						if(firstRequestId != null && firstRequestId != ""){
 							console.log(" Got firstRequestId : " + RequestQueue[firstRequestId].requestId);
+							
+							//Get Request Details
 							if(RequestQueue[firstRequestId].RequestSent == "N"){
 								var sql_query = RequestQueue[firstRequestId].sql_query;
 								var data = RequestQueue[firstRequestId].data;
@@ -599,6 +601,7 @@ function getNewConnectionFromDBPool(sql_query,data,req,res,operation,callback,re
 								var callbackf = RequestQueue[firstRequestId].callback;
 								var requestId = RequestQueue[firstRequestId].requestId;
 								RequestQueue[requestId].RequestSent = "Y";
+								
 								//Queue the request for execution !!!
 								setTimeout(function() { getNewConnectionFromDBPool(sql_query,data,req,res,operation,callbackf,requestId); }, 0);
 								console.log("The firstRequestId has been scheduled for execution : " + RequestQueue[firstRequestId].requestId);
@@ -617,7 +620,6 @@ function getNewConnectionFromDBPool(sql_query,data,req,res,operation,callback,re
 		}
 	}
 }
-
 
 function createConnectionPool(){
 	var mysql = require('mysql');
@@ -641,7 +643,6 @@ function createConnectionPool(){
 	}
 	return dbconnections;
 }
-
 
 function executeSelectQuery(sql_stmt,data,req,res,operation,requestId){
 	try {

@@ -19,163 +19,165 @@
    </head>
    <body ng-app="SocialMediaPrototypeGroupDetailsApp" ng-controller="GroupDetailsPageController" ng-init="user=<%= user %>; getGroupsInfo(); getCurrentMembers(); getNonMembers();">
       <div class="navbar navbar-fixed-top myBackground">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-ex-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="/home"><img height="30" width="150" alt="friend's circle" ng-src="/images/Drawing.png"></a>
-        </div>
-        <div class="collapse navbar-collapse" id="navbar-ex-collapse">
-          <ul class="nav navbar-nav navbar-right">
-            <li class="active" id="homebutton">
-              <div class="row">
-                <form class="navbar-form navbar-right" role="search" name="homeForm" ng-submit="gotoHome()"
-                action="/home" method="get" novalidate="">
-                  <button type="submit" ng-disabled="homeForm.$invalid" class="btn btn-primary">Home</button>
-                </form>
-              </div>
-            </li>
-            <li class="active">
-              <form class="navbar-form navbar-right" role="search" name="logoutForm"
-              ng-submit="logoutUesr()" action="/logout" method="post" novalidate="">
-                <button type="button" class="btn btn-primary" ng-click="logout()">Logout</button>
-              </form>
-            </li>
-          </ul>
-          <p class="navbar-text navbar-right" id="ProfileDisplayLink">
-            <img ng-src="{{user.IMAGE_URL}}" alt="profile" style="min-height:40px;height:40px;">
-            <a id="toolbarname" href="/userdetails" class="navbar-link">{{user.FIRST_NAME}}</a>
-          </p>
-        </div>
-      </div>
-    </div>
-    <div class="section">
-      <div class="container">
-        <div class="row"></div>
-      </div>
-    </div>
-    <div class="section">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-3">
-            <ul class="media-list">
-              <li class="media">
-                <a class="pull-left" href="/userdetails"><img class="media-object" ng-src="{{user.IMAGE_URL}}" height="64" width="64"></a>
-                <div class="media-body">
-                  <h4 class="media-heading">
-                    <a href="/userdetails" style="color:black;">{{user.FIRST_NAME}} {{user.LAST_NAME}}</a>
-                  </h4>
-                  <p></p>
-                </div>
-              </li>
-            </ul>
-            <ul class="media-list">
-              <li class="media">
-                <a class="pull-left" href="/friendslist"><img class="media-object" src="/images/friend_list_icon.png" height="54" width="54"></a>
-                <div class="media-body">
-                  <h4 class="media-heading">
-                    <a href="/friendslist" style="color:black;">Friends</a>
-                  </h4>
-                </div>
-              </li>
-              <li class="media">
-                <a class="pull-left" href="/groups"><img class="media-object" src="/images/Group_Icon.jpg" height="54" width="54"></a>
-                <div class="media-body">
-                  <h4 class="media-heading">
-                    <a href="/groups" style="color:black;">Groups</a>
-                  </h4>
-                </div>
-              </li>
-            </ul>
-          </div>
-          <div class="col-md-9">
-            <div class="row">
-              <div class="jumbotron">
-                <div class="container">
-                  <h2><b>{{group.GROUP_NAME}}</b></h2>
-                  <h3>{{group.GROUP_INFO}}</h3>
-                  <form name="deleteGroup{{group.ROW_ID}}" id="deleteGroup{{group.ROW_ID}}" action="/deleteGroup" method="post" novalidate="">
-                            <input type="hidden" name="groupid" id="groupid" ng-model="groupid"  value="{{group.ROW_ID}}">
-                            <button class="btn btn-primary"
-                  ng-click="deleteGroup(group)" type="submit" style="padding: 1px 1px;background-color:#3B5998; color: #E8F3F0;">
-                    <b>Delete Group</b>
-                  </button>
-                  </form>
-                </div>
-              </div>
+         <div class="container">
+            <div class="navbar-header">
+               <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-ex-collapse">
+               <span class="sr-only">Toggle navigation</span>
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+               </button>
+               <a class="navbar-brand" href="/home"><img height="30" width="150" alt="friend's circle" ng-src="/images/Drawing.png"></a>
             </div>
-            <div class="row" style="padding-bottom: 15px;padding-left: 15px;">
-              <div class="col-md-12">
-              </div>
-              <div class="col-md-12">
-                <div class="row" ng-show="group.error">
-                  <div class="alert alert-danger" ng-show="group.error">
-                    <strong>Error! {{group.errorMessage}}</strong>
+            <div class="collapse navbar-collapse" id="navbar-ex-collapse">
+               <ul class="nav navbar-nav navbar-right">
+                  <li class="active" id="homebutton">
+                     <div class="row">
+                        <form class="navbar-form navbar-right" role="search" name="homeForm" ng-submit="gotoHome()"
+                           action="/home" method="get" novalidate="">
+                           <button type="submit" ng-disabled="homeForm.$invalid" class="btn btn-primary">Home</button>
+                        </form>
+                     </div>
+                  </li>
+                  <li class="active">
+                     <form class="navbar-form navbar-right" role="search" name="logoutForm"
+                        ng-submit="logoutUesr()" action="/logout" method="post" novalidate="">
+                        <button type="button" class="btn btn-primary" ng-click="logout()">Logout</button>
+                     </form>
+                  </li>
+               </ul>
+               <p class="navbar-text navbar-right" id="ProfileDisplayLink">
+                  <img ng-src="{{user.IMAGE_URL}}" alt="profile" style="min-height:40px;height:40px;">
+                  <a id="toolbarname" href="/userdetails" class="navbar-link">{{user.FIRST_NAME}}</a>
+               </p>
+            </div>
+         </div>
+      </div>
+      <div class="section">
+         <div class="container">
+            <div class="row"></div>
+         </div>
+      </div>
+      <div class="section">
+         <div class="container">
+            <div class="row">
+               <div class="col-md-3">
+                  <ul class="media-list">
+                     <li class="media">
+                        <a class="pull-left" href="/userdetails"><img class="media-object" ng-src="{{user.IMAGE_URL}}" height="64" width="64"></a>
+                        <div class="media-body">
+                           <h4 class="media-heading">
+                              <a href="/userdetails" style="color:black;">{{user.FIRST_NAME}} {{user.LAST_NAME}}</a>
+                           </h4>
+                           <p></p>
+                        </div>
+                     </li>
+                  </ul>
+                  <ul class="media-list">
+                     <li class="media">
+                        <a class="pull-left" href="/friendslist"><img class="media-object" src="/images/friend_list_icon.png" height="54" width="54"></a>
+                        <div class="media-body">
+                           <h4 class="media-heading">
+                              <a href="/friendslist" style="color:black;">Friends</a>
+                           </h4>
+                        </div>
+                     </li>
+                     <li class="media">
+                        <a class="pull-left" href="/groups"><img class="media-object" src="/images/Group_Icon.jpg" height="54" width="54"></a>
+                        <div class="media-body">
+                           <h4 class="media-heading">
+                              <a href="/groups" style="color:black;">Groups</a>
+                           </h4>
+                        </div>
+                     </li>
+                  </ul>
+               </div>
+               <div class="col-md-9">
+                  <div class="row">
+                     <div class="jumbotron">
+                        <div class="container">
+                           <h2><b>{{group.GROUP_NAME}}</b></h2>
+                           <h3>{{group.GROUP_INFO}}</h3>
+                           <form name="deleteGroup{{group.ROW_ID}}" id="deleteGroup{{group.ROW_ID}}" action="/deleteGroup" method="post" novalidate="">
+                              <input type="hidden" name="groupid" id="groupid" ng-model="groupid"  value="{{group.ROW_ID}}">
+                              <button class="btn btn-primary"
+                                 ng-click="deleteGroup(group)" type="submit" style="padding: 1px 1px;background-color:#3B5998; color: #E8F3F0;">
+                              <b>Delete Group</b>
+                              </button>
+                           </form>
+                        </div>
+                     </div>
                   </div>
-                </div>
-              </div>
+                  <div class="row" style="padding-bottom: 15px;padding-left: 15px;">
+                     <div class="col-md-12">
+                     </div>
+                     <div class="col-md-12">
+                        <div class="row" ng-show="group.error">
+                           <div class="alert alert-danger" ng-show="group.error">
+                              <strong>Error! {{group.errorMessage}}</strong>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="row">
+                     <div class="col-md-6">
+                        <h3>
+                           <img style="min-height:30px;height:30px;" alt="" src="/images/browsegroups.png">&nbsp;&nbsp;Group Members
+                        </h3>
+                     </div>
+                     <div class="col-md-6">
+                        <h3>
+                           <img style="min-height:30px;height:30px;" alt="" src="/images/my-groups-icon.png">&nbsp;&nbsp;Add Members
+                        </h3>
+                     </div>
+                  </div>
+                  <div class="row">
+                     <div class="col-md-6">
+                        <div class="alert alert-danger" ng-show="curUsers.error">
+                           <strong>Error! {{curUsers.errorMessage}}</strong>
+                        </div>
+                        <ul class="media-list" id="curUsers">
+                           <li class="media" ng-repeat="cuser in curUsers">
+                              <a class="pull-left" href="" ng-click="removeUserfromGroup(cuser)"><img class="media-object" ng-src="{{cuser.IMAGE_URL}}" height="54" width="54"></a>
+                              <div class="media-body">
+                                 <h4 class="media-heading">
+                                    <b>{{cuser.FIRST_NAME}} {{cuser.LAST_NAME}}</b>&nbsp;&nbsp;
+                                    <button class="btn btn-primary" ng-click="removeUserfromGroup(cuser)"
+                                       style="padding: 1px 1px;background-color:#3B5998; color: #E8F3F0;">
+                                    <b>Remove User</b>
+                                    </button>
+                                 </h4>
+                                 <p>{{cuser.EMAIL_ADDR}}</p>
+                              </div>
+                           </li>
+                        </ul>
+                     </div>
+                     <div class="col-md-6">
+                        <div class="alert alert-danger" ng-show="newUsers.error">
+                           <strong>Error! {{newUsers.errorMessage}}</strong>
+                        </div>
+                        <ul class="media-list" id="newUsers">
+                           <li class="media" ng-repeat="nuser in newUsers">
+                              <a class="pull-left" ng-click="addUserToGroup(nuser)"><img class="media-object" ng-src="{{nuser.IMAGE_URL}}" height="54" width="54"></a>
+                              <div class="media-body">
+                                 <h4 class="media-heading">
+                                    <b>
+                                    <a class="pull-left" ng-click="addUserToGroup(nuser)" style="color: black;">{{nuser.FIRST_NAME}} {{nuser.LAST_NAME}}</a>
+                                    </b>&nbsp;&nbsp;
+                                    <button class="btn btn-primary" ng-click="addUserToGroup(nuser)"
+                                       style="padding: 1px 1px;background-color:#3B5998;">
+                                    <b>Add User</b>
+                                    </button>
+                                 </h4>
+                                 <p>{{nuser.EMAIL_ADDR}}</p>
+                              </div>
+                           </li>
+                        </ul>
+                     </div>
+                  </div>
+               </div>
             </div>
-            <div class="row">
-              <div class="col-md-6">
-                <h3>
-                  <img style="min-height:30px;height:30px;" alt="" src="/images/browsegroups.png">&nbsp;&nbsp;Group Members</h3>
-              </div>
-              <div class="col-md-6">
-                <h3>
-                  <img style="min-height:30px;height:30px;" alt="" src="/images/my-groups-icon.png">&nbsp;&nbsp;Add Members</h3>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6">
-                <div class="alert alert-danger" ng-show="curUsers.error">
-                  <strong>Error! {{curUsers.errorMessage}}</strong>
-                </div>
-                <ul class="media-list" id="curUsers">
-                  <li class="media" ng-repeat="cuser in curUsers">
-                    <a class="pull-left" href="" ng-click="removeUserfromGroup(cuser)"><img class="media-object" ng-src="{{cuser.IMAGE_URL}}" height="54" width="54"></a>
-                    <div class="media-body">
-                      <h4 class="media-heading">
-                        <b>{{cuser.FIRST_NAME}} {{cuser.LAST_NAME}}</b>&nbsp;&nbsp;
-                        <button class="btn btn-primary" ng-click="removeUserfromGroup(cuser)"
-                        style="padding: 1px 1px;background-color:#3B5998; color: #E8F3F0;">
-                          <b>Remove User</b>
-                        </button>
-                      </h4>
-                      <p>{{cuser.EMAIL_ADDR}}</p>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-              <div class="col-md-6">
-                <div class="alert alert-danger" ng-show="newUsers.error">
-                  <strong>Error! {{newUsers.errorMessage}}</strong>
-                </div>
-                <ul class="media-list" id="newUsers">
-                  <li class="media" ng-repeat="nuser in newUsers">
-                      <a class="pull-left" ng-click="addUserToGroup(nuser)"><img class="media-object" ng-src="{{nuser.IMAGE_URL}}" height="54" width="54"></a>
-                      <div class="media-body">
-                        <h4 class="media-heading">
-                          <b>
-                            <a class="pull-left" ng-click="addUserToGroup(nuser)" style="color: black;">{{nuser.FIRST_NAME}} {{nuser.LAST_NAME}}</a>
-                          </b>&nbsp;&nbsp;
-                          <button class="btn btn-primary" ng-click="addUserToGroup(nuser)"
-                          style="padding: 1px 1px;background-color:#3B5998;">
-                            <b>Add User</b>
-                          </button>
-                        </h4>
-                        <p>{{nuser.EMAIL_ADDR}}</p>
-                      </div>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
+         </div>
       </div>
-    </div>
    </body>
 </html>

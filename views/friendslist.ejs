@@ -40,10 +40,10 @@
                      </div>
                   </li>
                   <li class="active">
-              <form class="navbar-form navbar-right" role="search" name="logoutForm"
-              ng-submit="logoutUesr()" action="/logout" method="post" novalidate="">
-               <button type="button" class="btn btn-primary" ng-click="logout()">Logout</button>
-              </form>
+                     <form class="navbar-form navbar-right" role="search" name="logoutForm"
+                        ng-submit="logoutUesr()" action="/logout" method="post" novalidate="">
+                        <button type="button" class="btn btn-primary" ng-click="logout()">Logout</button>
+                     </form>
                   </li>
                </ul>
                <p class="navbar-text navbar-right" id="ProfileDisplayLink">
@@ -65,70 +65,72 @@
                   <div class="container" style="padding:0px 0px;margin: 0px 0px;">
                      <div class="row" style="padding:0px 0px;margin: 0px 0px;">
                         <div class="col-md-12" style="padding:0px 0px;margin: 0px 0px;>
-                           <div class="section" style="padding:0px 0px;margin: 0px 0px;>
-                              <div class="container">
+                        <div class="section" style="padding:0px 0px;margin: 0px 0px;>
+                           <div class="container">
+                           <div class="row">
+                              <div class="col-md-12">
                                  <div class="row">
-                                    <div class="col-md-12">
-                                    <div class="row">
-                                    <div class="col-md-6"><h2 class="text-left"><img style="min-height:40px;height:40px;" alt="friendsIcon" src="/images/myfriendsicon.png">&nbsp;&nbsp;My Friends</h2></div>
-                                    <div class="col-md-6"><h4 class="text-right">Search Friends<input type="text" ng-model="temp.FIRST_NAME">&nbsp;&nbsp;<img style="min-height:30px;height:30px;" alt="" src="/images/Search-icon.png"></h4></div>
+                                    <div class="col-md-6">
+                                       <h2 class="text-left"><img style="min-height:40px;height:40px;" alt="friendsIcon" src="/images/myfriendsicon.png">&nbsp;&nbsp;My Friends</h2>
                                     </div>
-                                      <p class="text-left"></p>
-                                       <div class="alert alert-danger" ng-show="myfriendslist.error">
-                                          <strong>Error! {{myfriendslist.errorMessage}}</strong>
-                                       </div>
+                                    <div class="col-md-6">
+                                       <h4 class="text-right">Search Friends<input type="text" ng-model="temp.FIRST_NAME">&nbsp;&nbsp;<img style="min-height:30px;height:30px;" alt="" src="/images/Search-icon.png"></h4>
                                     </div>
                                  </div>
-                                 <div  class="row" id="myfriendlistFrndpage" ng-show="!myfriendslist.error">
-                                    <div class="col-md-6" ng-repeat="friend in myfriendslist | filter : temp">
-                                        <form name="navToFriendDetailPage{{friend.ROW_ID}}" id="navToFriendDetailPage{{friend.ROW_ID}}" action="/navToFriendDetailPage" method="get" novalidate="">
-			                            <input type="hidden" name="friendid" id="friendid" ng-model="friendid"  value="{{friend.ROW_ID}}">
-			                            </form>
-                                       <div class="row row-eq-height">
-                                          <div class="col-md-2">
-                                             <a ng-click="navToFriendDetailPage(friend)" style="color: black;">
-                                             <img class="img-rounded img-responsive" ng-src="{{friend.IMAGE_URL}}">
-                                             </a>
-                                          </div>
-                                          <div class="col-md-10">
-                                             <h3 class="text-left">
-                                                <a ng-click="navToFriendDetailPage(friend)" style="color: black;">
-                                                {{friend.FIRST_NAME}} {{friend.LAST_NAME}}
-                                                </a>
-                                             </h3>
-                                               <div class="dropdown text-left">
-                                                   <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" style="padding: 1px 1px;background-color:#3B5998; color: #E8F3F0;"><i class="fa fa-star"></i>&nbsp;&nbsp;Friends
-                                                   <span class="caret"></span></button>
-                                                   <ul class="dropdown-menu">
-                                                      <li><a href="" ng-click="unFriendUserRequest(friend)" >Unfriend</a></li>
-                                                   </ul>
-                                                </div>
-                                          </div>
-                                       </div>
-                                    </div>
-                                    <!-- 						  <div class="col-md-4" ng-repeat="friend in myfriendslist | filter : temp" ng-if="$index%3===1">
-                                       {{friend.FIRST_NAME}}{{$index}}
-                                       </div>
-                                       
-                                       <div class="col-md-4" ng-repeat="friend in myfriendslist | filter : temp" ng-if="$index%3===2">
-                                       {{friend.FIRST_NAME}}{{$index}}
-                                       </div> -->
-                                    <!--     Original Code!!                                 
-                                       <div class="row" ng-repeat="friend in myfriendslist | filter : temp" ng-show="!myfriendslist.error">
-                                         <div class="col-md-2">
-                                           <img class="img-thumbnail img-responsive" ng-src="{{friend.IMAGE_URL}}">
-                                         </div>
-                                         <div class="col-md-10">
-			                          	<form name="navToGroupDetailPage{{group.ROW_ID}}" id="navToGroupDetailPage{{group.ROW_ID}}" action="/navToGroupDetailPage" method="get" novalidate="">
-			                            <input type="hidden" name="groupid" id="groupid" ng-model="groupid"  value="{{group.ROW_ID}}">
-			                            </form>
-                                           <h3 class="text-left">{{friend.FIRST_NAME}} {{friend.LAST_NAME}}</h3>
-                                           <p class="text-left">Email : {{friend.EMAIL_ADDR}}</p>
-                                         </div>
-                                       </div>
-                                        -->
+                                 <p class="text-left"></p>
+                                 <div class="alert alert-danger" ng-show="myfriendslist.error">
+                                    <strong>Error! {{myfriendslist.errorMessage}}</strong>
                                  </div>
                               </div>
+                           </div>
+                           <div  class="row" id="myfriendlistFrndpage" ng-show="!myfriendslist.error">
+                              <div class="col-md-6" ng-repeat="friend in myfriendslist | filter : temp">
+                                 <form name="navToFriendDetailPage{{friend.ROW_ID}}" id="navToFriendDetailPage{{friend.ROW_ID}}" action="/navToFriendDetailPage" method="get" novalidate="">
+                                    <input type="hidden" name="friendid" id="friendid" ng-model="friendid"  value="{{friend.ROW_ID}}">
+                                 </form>
+                                 <div class="row row-eq-height">
+                                    <div class="col-md-2">
+                                       <a ng-click="navToFriendDetailPage(friend)" style="color: black;">
+                                       <img class="img-rounded img-responsive" ng-src="{{friend.IMAGE_URL}}">
+                                       </a>
+                                    </div>
+                                    <div class="col-md-10">
+                                       <h3 class="text-left">
+                                          <a ng-click="navToFriendDetailPage(friend)" style="color: black;">
+                                          {{friend.FIRST_NAME}} {{friend.LAST_NAME}}
+                                          </a>
+                                       </h3>
+                                       <div class="dropdown text-left">
+                                          <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" style="padding: 1px 1px;background-color:#3B5998; color: #E8F3F0;"><i class="fa fa-star"></i>&nbsp;&nbsp;Friends
+                                          <span class="caret"></span></button>
+                                          <ul class="dropdown-menu">
+                                             <li><a href="" ng-click="unFriendUserRequest(friend)" >Unfriend</a></li>
+                                          </ul>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                              <!-- 						  <div class="col-md-4" ng-repeat="friend in myfriendslist | filter : temp" ng-if="$index%3===1">
+                                 {{friend.FIRST_NAME}}{{$index}}
+                                 </div>
+                                 
+                                 <div class="col-md-4" ng-repeat="friend in myfriendslist | filter : temp" ng-if="$index%3===2">
+                                 {{friend.FIRST_NAME}}{{$index}}
+                                 </div> -->
+                              <!--     Original Code!!                                 
+                                 <div class="row" ng-repeat="friend in myfriendslist | filter : temp" ng-show="!myfriendslist.error">
+                                   <div class="col-md-2">
+                                     <img class="img-thumbnail img-responsive" ng-src="{{friend.IMAGE_URL}}">
+                                   </div>
+                                   <div class="col-md-10">
+                                 <form name="navToGroupDetailPage{{group.ROW_ID}}" id="navToGroupDetailPage{{group.ROW_ID}}" action="/navToGroupDetailPage" method="get" novalidate="">
+                                 <input type="hidden" name="groupid" id="groupid" ng-model="groupid"  value="{{group.ROW_ID}}">
+                                 </form>
+                                     <h3 class="text-left">{{friend.FIRST_NAME}} {{friend.LAST_NAME}}</h3>
+                                     <p class="text-left">Email : {{friend.EMAIL_ADDR}}</p>
+                                   </div>
+                                 </div>
+                                  -->
                            </div>
                         </div>
                      </div>
@@ -136,6 +138,8 @@
                </div>
             </div>
          </div>
+      </div>
+      </div>
       </div>
       <div class="section" >
          <div class="container">
@@ -170,9 +174,9 @@
                   <div class="alert alert-danger" ng-show="friendslist.error">
                      <strong>Error! {{friendslist.errorMessage}}</strong>
                   </div>
-               <div class="alert alert-success" ng-show="friendslist.sucess">
-                <strong>Success!</strong> Friends Request sent Successfully !!!
-              </div>
+                  <div class="alert alert-success" ng-show="friendslist.sucess">
+                     <strong>Success!</strong> Friends Request sent Successfully !!!
+                  </div>
                   <h4 class="text-left">Search<input type="text" ng-model="tempfriends.FIRST_NAME"><img style="min-height:30px;height:30px;" alt="" src="/images/Search-icon.png"></h4>
                   <div class="row" ng-repeat="friends in friendslist | filter : tempfriends" ng-show="!friendslist.error">
                      <div class="col-md-2" style="padding: 0px 0px;">

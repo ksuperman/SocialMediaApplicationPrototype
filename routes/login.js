@@ -4,23 +4,8 @@ exports.login = function(req,res){
 	var user = req.body;
 	var accountoperation = require('./accountoperation');
 	console.log("Login Invoked \n");
-	//console.log(req.session);
 	accountoperation.verifyUser(user,res,req);
 };
-
-/*
-exports.loginREST = function(req,res){
-	deligateDBAccessRequest(req,res,requestId);
-	requestId++;
-};
-
-function deligateRequest(req,res,requestId){
-	var user = req.body;
-	console.log("loginREST requestId ---> " + requestId );
-	var DBConnections = require('./DBConnectionPool');
-	setTimeout(function() { DBConnections.handleDBRequest("loginUser",user,res,req,requestId); }, 0);
-};
-*/
 
 exports.home = function(req,res){
 	var user = req.body;

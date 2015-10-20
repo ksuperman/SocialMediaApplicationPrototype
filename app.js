@@ -1,25 +1,20 @@
-
-/**
- * Module dependencies.
- */
-
 var express = require('express')
-  , routes = require('./routes')
-  , user = require('./routes/user')
-  , http = require('http')
-  , path = require('path')
-  , signup = require('./routes/signup')
-  , login = require('./routes/login')
-  , session = require('client-sessions')
-  , newsfeed = require('./routes/newsfeed')
-  , friend = require('./routes/friend')
-  , user = require('./routes/user')
-  , groups = require('./routes/groups')
-  , bcrypt = require('bcrypt');
+, routes = require('./routes')
+, user = require('./routes/user')
+, http = require('http')
+, path = require('path')
+, signup = require('./routes/signup')
+, login = require('./routes/login')
+, session = require('client-sessions')
+, newsfeed = require('./routes/newsfeed')
+, friend = require('./routes/friend')
+, user = require('./routes/user')
+, groups = require('./routes/groups')
+, bcrypt = require('bcrypt');
 
 var app = express();
 
-// all environments
+//Setting up the Cookie properties
 app.use(session({
 	cookieName: 'session',    
 	secret: 'socialediaapplicationprototype',    
@@ -33,12 +28,14 @@ app.use(express.logger('dev'));
 app.use(express.bodyParser());
 app.use(express.methodOverride());
 app.use(app.router);
+
+//Exposing the public folder to be accessed
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/public', express.static(__dirname + "/public"));
 
-// development only
+//development only
 if ('development' == app.get('env')) {
-  app.use(express.errorHandler());
+	app.use(express.errorHandler());
 }
 
 app.get('/', routes.index);
@@ -58,20 +55,9 @@ app.post('/removeUserFromGroupAdmin',groups.removeUserFromGroupAdmin);
 app.post('/addUserToGroupAdmin',groups.addUserToGroupAdmin);
 app.post('/deleteGroup',groups.deleteGroup);
 
-
 //Friend Details Pages
 app.get('/navToFriendDetailPage?:friendid', friend.navToFriendDetailPage);
 app.post('/getFriendDetails',friend.getFriendDetails);
-
-/*	app.post('/loginREST',login.loginREST);
- 	app.post('/loginREST', function(req,res){
-	var user = req.body;
-	console.log("loginREST ---> " + JSON.stringify(user));
-	var DBConnections = require('./routes/DBConnectionPool');
-	setTimeout(function() {DBConnections.handleDBRequest("loginUser",user,res,req);}, 1);
-	
-});*/
-
 app.post('/signup', signup.signup);
 app.post('/getLifeEvents',user.getLifeEvents);
 app.post('/login', login.login);
@@ -93,5 +79,5 @@ app.post('/removeUserFromGroup',groups.removeUserFromGroup);
 app.post('/createGroup',groups.createGroup);
 
 http.createServer(app).listen(app.get('port'), function(){
-  console.log('Social Media Prototype server listening on port ' + app.get('port'));
+	console.log('Social Media Prototype server listening on port ' + app.get('port'));
 });
