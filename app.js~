@@ -12,7 +12,7 @@ var express = require('express')
 , groups = require('./routes/groups')
 , bcrypt = require('bcrypt');
 
-var app = express();
+var app = express(); 
 
 //Setting up the Cookie properties
 app.use(session({
